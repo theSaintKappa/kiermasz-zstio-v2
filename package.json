@@ -1,0 +1,30 @@
+{
+    "name": "kiermasz-zstio-v2",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "description": "Web app made to organise my school's annual book fair.",
+    "author": "SaintKappa",
+    "license": "MIT",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview",
+        "check": "svelte-check --tsconfig ./tsconfig.json"
+    },
+    "devDependencies": {
+        "@sveltejs/vite-plugin-svelte": "^2.0.3",
+        "@tsconfig/svelte": "^4.0.1",
+        "svelte": "^3.57.0",
+        "svelte-check": "^2.10.3",
+        "tslib": "^2.5.0",
+        "typescript": "^5.0.2",
+        "vite": "^4.3.2"
+    },
+    "dependencies": {
+        "@sweetalert2/theme-dark": "^5.0.15",
+        "firebase": "^9.22.0",
+        "firebase-admin": "^11.9.0",
+        "sweetalert2": "^11.7.5"
+    }
+}
