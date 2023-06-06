@@ -21,16 +21,15 @@
                 cancelButtonText: 'Nie, anuluj',
                 focusCancel: true,
                 reverseButtons: true,
-                // cancelButtonColor: '#d33d33',
-                // confirmButtonColor: '#3523A9',
+                confirmButtonColor: '#3b27be',
+                background: '#191722',
                 backdrop: 'transparent',
             });
             if (!result.isConfirmed) return;
         }
 
-        await updateDoc(textbookDoc, { sold: true, 'reservation.status': false }).then(() => {
-            toast.fire({ icon: 'success', title: `Oznaczono podręcznik <strong>${textbook.title}</strong> jako sprzedany!` });
-        });
+        await updateDoc(textbookDoc, { sold: true, 'reservation.status': false });
+        toast.fire({ icon: 'success', title: `Oznaczono podręcznik <strong>${textbook.title}</strong> jako sprzedany!` });
     }
 
     async function createReservation() {
@@ -42,8 +41,8 @@
             cancelButtonText: 'Anuluj',
             focusConfirm: false,
             reverseButtons: true,
-            // cancelButtonColor: '#d33d33',
-            // confirmButtonColor: '#3523A9',
+            confirmButtonColor: '#3b27be',
+            background: '#191722',
             backdrop: 'transparent',
             didOpen: () => (<HTMLInputElement>Swal.getPopup().querySelector('form')[0]).focus(),
             preConfirm: async () => {

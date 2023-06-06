@@ -14,8 +14,8 @@
             cancelButtonText: 'Anuluj',
             focusConfirm: false,
             reverseButtons: true,
-            // cancelButtonColor: '#d33d33',
-            // confirmButtonColor: '#3523A9',
+            confirmButtonColor: '#3b27be',
+            background: '#191722',
             backdrop: 'transparent',
             didOpen: () => (<HTMLInputElement>Swal.getPopup().querySelector('form')[0]).focus(),
             preConfirm: async () => {

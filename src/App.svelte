@@ -6,7 +6,6 @@
 </script>
 
 <Header />
-
 {#if !$user}
     <Landing />
 {:else}

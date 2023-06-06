@@ -35,8 +35,10 @@ exports.cancelReservation = onDocumentUpdated({ document: 'sellers/{sellerId}/te
 exports.reservationCleanup = onSchedule({ schedule: '0 0 * * *', timeZone, region }, async () => {
     const snapshot = await db.collectionGroup('textbooks').where('reservation.expiry', '<=', Timestamp.now()).get();
 
-    for (const doc of snapshot.docs)
-        await doc.ref.set({ reservation: { status: false } }, { merge: true }).then(() => logger.log(`Reservation for ${(<TextbookReservation>doc.data()).reservation.holder} has been cancelled.`));
+    for (const doc of snapshot.docs) {
+        await doc.ref.set({ reservation: { status: false } }, { merge: true });
+        logger.log(`Reservation for ${(<TextbookReservation>doc.data()).reservation.holder} has been cancelled.`);
+    }
 });
 
 // At minute 0 and 30 past every hour from 8 through 16 and 0 on every day-of-week from Monday through Friday.

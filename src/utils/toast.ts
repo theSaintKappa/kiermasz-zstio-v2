@@ -6,6 +6,7 @@ const toast = Swal.mixin({
     showConfirmButton: false,
     timer: 4000,
     timerProgressBar: true,
+    background: '#191722',
     showClass: { popup: 'toast-slidein' },
     hideClass: { popup: 'toast-slideout' },
     didOpen: (toast) => {

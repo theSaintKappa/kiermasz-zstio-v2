@@ -20,6 +20,26 @@
     });
 </script>
 
-{#each textbooks as textbook}
-    <span>{textbook.title} {textbook.price}zł</span>
-{/each}
+<div class="grid">
+    {#each textbooks as textbook}
+        <div>{textbook.title} {textbook.price}zł</div>
+        <div>{textbook.title} {textbook.price}zł</div>
+        <div>{textbook.title} {textbook.price}zł</div>
+    {/each}
+</div>
+
+<style>
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        width: min(100% - 2 * 1rem, 1200px);
+        gap: 1rem;
+    }
+
+    .grid > div {
+        display: flex;
+        width: 200px;
+        height: 100px;
+        background-color: var(--bg-secondary);
+    }
+</style>

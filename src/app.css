@@ -74,14 +74,19 @@
 :root {
     font-family: Inter, sans-serif;
     line-height: 1.5;
-    background-color: var(--bg-primary);
-    color: #f3f3f3;
+    color: #eeeeeeee;
     color-scheme: dark light;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
 
-    --bg-primary: #141c28;
-    --bg-secondary: #1c2531;
+    background-image: radial-gradient(var(--accent-primary) 6.5%, var(--bg-primary) 6.5%);
+    background-size: 24px 24px;
+    background-position: center top;
+
+    --bg-primary: hsl(251, 17%, 7%);
+    --bg-secondary: hsl(251, 20%, 11.25%);
+    --accent-primary: hsl(248, 66%, 45%);
+    --accent-secondary: hsl(248, 66%, 30%);
 }
 
 *,
@@ -97,8 +102,11 @@ html {
 }
 
 body {
-    height: 100vh;
-    height: 100svh;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 img,
@@ -114,6 +122,7 @@ button {
 
 button {
     cursor: pointer;
+    color: inherit;
 }
 
 .toast-slidein {
@@ -147,4 +156,9 @@ button {
 body.swal2-shown > [aria-hidden='true'] {
     transition: filter 100ms;
     filter: blur(6px) brightness(0.5);
+}
+
+.swal2-input {
+    max-width: 100% !important;
+    margin-inline: 0 !important;
 }
