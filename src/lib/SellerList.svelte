@@ -10,8 +10,6 @@
     onMount(() => {
         const q = query(collection(db, 'sellers'), orderBy('createdAt', 'desc'));
         const unsubscribe = onSnapshot(q.withConverter(converter<SellerDocument>()), (snapshot) => {
-            // console.log('sellers snapshot triggered');
-
             let sellerDocuments: SellerDocumentFull[] = [];
             for (const doc of snapshot.docs) {
                 sellerDocuments.push({ ...doc.data(), id: doc.id });
@@ -19,15 +17,25 @@
             sellers = sellerDocuments;
         });
 
-        return () => {
-            unsubscribe();
-            // console.log('unsubscribed from sellers collection');
-        };
+        return () => unsubscribe();
     });
 </script>
 
-{#each sellers as seller}
-    {#key seller.id}
-        <SellerItem {seller} />
-    {/key}
-{/each}
+<div class="list">
+    {#each sellers as seller}
+        {#key seller.id}
+            <SellerItem {seller} />
+        {/key}
+    {/each}
+</div>
+
+<style>
+    .list {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        border: 2px solid var(--accent-primary);
+        border-radius: 1rem;
+        overflow: hidden;
+    }
+</style>

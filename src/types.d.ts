@@ -1,6 +1,7 @@
 type FieldValue = import('firebase/firestore').FieldValue;
 type Timestamp = import('firebase/firestore').Timestamp;
 type User = import('firebase/auth').User;
+type Auth = import('firebase/auth').Auth;
 
 interface Creator {
     creator: {
@@ -33,6 +34,7 @@ interface TextbookDataForm {
 interface TextbookDocument extends TextbookDataForm, Creator {
     createdAt: FieldValue;
     sold: boolean;
+    soldAt: Timestamp;
     sellerEmailName: string;
     email: string;
     reservation: {
@@ -49,8 +51,17 @@ interface TextbookDocumentFull extends TextbookDocument {
 
 type BookCondition = 1 | 2 | 3 | 4 | 5;
 
-interface Backup {
+interface BackupDocument {
     createdAt: Timestamp;
     status: 'pending' | 'complete' | 'failed';
     type: 'scheduled' | 'manual';
+}
+
+interface TitleDocument extends Creator {
+    name: string;
+    createdAt: FieldValue;
+}
+
+interface TitleDocumentFull extends TitleDocument {
+    id: string;
 }

@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2';
 
-const toast = Swal.mixin({
+export const toast = Swal.mixin({
     toast: true,
     position: 'bottom-end',
     showConfirmButton: false,
@@ -14,4 +14,13 @@ const toast = Swal.mixin({
         toast.addEventListener('mouseleave', Swal.resumeTimer);
     },
 });
-export default toast;
+
+export const modal = Swal.mixin({
+    focusConfirm: false,
+    confirmButtonColor: '#3b27be',
+    background: '#191722',
+    backdrop: 'transparent',
+    showCancelButton: true,
+    cancelButtonText: 'Anuluj',
+    reverseButtons: true,
+});

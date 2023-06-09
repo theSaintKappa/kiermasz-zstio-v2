@@ -74,7 +74,7 @@
 :root {
     font-family: Inter, sans-serif;
     line-height: 1.5;
-    color: #eeeeeeee;
+    color: var(--font-light);
     color-scheme: dark light;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -87,6 +87,12 @@
     --bg-secondary: hsl(251, 20%, 11.25%);
     --accent-primary: hsl(248, 66%, 45%);
     --accent-secondary: hsl(248, 66%, 30%);
+    --btn-hover: hsl(248, 66%, 22.5%);
+    --font-light: hsla(0, 0%, 93%, 0.933);
+    --font-light-opaque: hsla(0, 0%, 75%, 0.65);
+
+    /* TODO: up the font size to 20px */
+    /* font-size: 20px; */
 }
 
 *,
@@ -115,6 +121,10 @@ svg {
     width: 100%;
 }
 
+svg {
+    fill: var(--font-light);
+}
+
 input,
 button {
     font: inherit;
@@ -123,6 +133,18 @@ button {
 button {
     cursor: pointer;
     color: inherit;
+    white-space: nowrap;
+}
+.btn {
+    background-color: var(--accent-secondary);
+    border: 2px solid;
+    border-color: var(--accent-primary);
+    padding: 0.4rem 0.5rem;
+    border-radius: 0.5rem;
+    color: var(--font-light);
+}
+.btn-hover:hover {
+    background-color: var(--btn-hover);
 }
 
 .toast-slidein {
@@ -161,4 +183,45 @@ body.swal2-shown > [aria-hidden='true'] {
 .swal2-input {
     max-width: 100% !important;
     margin-inline: 0 !important;
+}
+
+.swal2-html-container > form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.swal2-html-container .condition-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 0.25rem;
+    margin: 1rem 0 0.5rem;
+    width: fit-content;
+    padding: 1rem;
+    border-width: 4px;
+}
+.swal2-html-container .condition-wrapper > legend {
+    padding-inline: 0.5rem;
+}
+.swal2-html-container .condition-wrapper > label {
+    position: relative;
+    cursor: pointer;
+}
+.swal2-html-container .condition-wrapper input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+.swal2-html-container .condition-wrapper img {
+    width: 3rem;
+    aspect-ratio: 1;
+    position: relative;
+    border-radius: 50%;
+    transition: 200ms;
+}
+.swal2-html-container .condition-wrapper input:checked + img {
+    box-shadow: 0 0 8px 2px var(--font-light);
+    scale: 1.1;
+}
+.swal2-html-container .condition-wrapper input:not(:checked) + img {
+    filter: grayscale(1) blur(2px);
 }
