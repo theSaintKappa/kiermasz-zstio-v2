@@ -26,9 +26,22 @@ exports.sendEmail = onCall({ region }, async (request) => {
 });
 
 exports.cancelReservation = onDocumentUpdated({ document: 'sellers/{sellerId}/textbooks/{textbookId}', region }, async (event) => {
-    const before = <TextbookReservation>event.data?.before.data();
-    const after = <TextbookReservation>event.data?.after.data();
+    const before = <TextbookDocument>event.data?.before.data();
+    const after = <TextbookDocument>event.data?.after.data();
+
     if (before.reservation.status && !after.reservation.status) return event.data?.after.ref.set({ reservation: { holder: null, expiry: null } }, { merge: true });
+
+    return null;
+});
+
+exports.updateSoldAt = onDocumentUpdated({ document: 'sellers/{sellerId}/textbooks/{textbookId}', region }, async (event) => {
+    const before = <TextbookDocument>event.data?.before.data();
+    const after = <TextbookDocument>event.data?.after.data();
+
+    if (before.sold && !after.sold) return event.data?.after.ref.set({ soldAt: null }, { merge: true });
+
+    if (!before.sold && after.sold && !after.soldAt) return event.data?.after.ref.set({ soldAt: Timestamp.now(), reservation: { status: false } }, { merge: true });
+
     return null;
 });
 
@@ -37,7 +50,7 @@ exports.reservationCleanup = onSchedule({ schedule: '0 0 * * *', timeZone, regio
 
     for (const doc of snapshot.docs) {
         await doc.ref.set({ reservation: { status: false } }, { merge: true });
-        logger.log(`Reservation for ${(<TextbookReservation>doc.data()).reservation.holder} has been cancelled.`);
+        logger.log(`Reservation for ${(<TextbookDocument>doc.data()).reservation.holder} has been cancelled.`);
     }
 });
 

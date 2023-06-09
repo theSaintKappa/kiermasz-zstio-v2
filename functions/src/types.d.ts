@@ -1,10 +1,12 @@
 type Timestamp = import('firebase/firestore').Timestamp;
 
-interface TextbookReservation {
+interface TextbookDocument {
+    sold: boolean;
+    soldAt: Timestamp;
     reservation: {
         status: boolean;
         holder: string;
-        expiry: Date;
+        expiry: Timestamp;
     };
 }
 
