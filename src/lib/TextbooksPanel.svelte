@@ -1,6 +1,6 @@
 <script lang="ts">
     import { db } from '../firebaseConfig';
-    import { onSnapshot, query, collection, orderBy, addDoc, serverTimestamp } from 'firebase/firestore';
+    import { onSnapshot, query, collection, orderBy, addDoc, serverTimestamp, doc, deleteDoc } from 'firebase/firestore';
     import { converter } from '../utils/converter';
     import { user, textbookTitles } from '../stores';
     import { onMount } from 'svelte';
@@ -38,6 +38,10 @@
         titleInput.value = '';
         titleInput.focus();
     }
+
+    async function removeTitle(id: string) {
+        await deleteDoc(doc(db, 'titles', id));
+    }
 </script>
 
 <section>
@@ -49,9 +53,9 @@
             </svg>
         </button>
     </form>
-    <div class="list">
+    <div>
         {#each titles as title}
-            <span>{title.name}</span>
+            <span>{title.name} <button on:click={() => removeTitle(title.id)}>🗑️</button></span>
         {/each}
     </div>
 </section>
@@ -65,6 +69,7 @@
 
     form {
         display: flex;
+        justify-content: end;
     }
 
     input {
@@ -74,7 +79,7 @@
         padding: 0.5rem 1rem;
     }
 
-    button {
+    form > button {
         border-radius: 0 1000px 1000px 0;
         aspect-ratio: 1;
     }
@@ -83,9 +88,17 @@
         height: 80%;
     }
 
-    .list {
+    div {
         display: flex;
         flex-direction: column;
         align-items: end;
+        padding: 1rem 0.5rem;
+    }
+    div > span {
+        font-size: 1.15rem;
+    }
+    div > span > button {
+        background-color: transparent;
+        border: none;
     }
 </style>

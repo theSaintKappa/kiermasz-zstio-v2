@@ -71,7 +71,7 @@
     }
 
     h1 {
-        font-size: clamp(1rem, 6vw, 2.5rem);
+        font-size: clamp(1rem, 6.5vw, 2.5rem);
         font-weight: 800;
         white-space: nowrap;
     }
@@ -97,14 +97,17 @@
             gap: 0;
             justify-content: space-around;
         }
-        div {
+        .heading {
             gap: 0.5rem;
         }
         span {
             display: none;
         }
         svg {
-            height: 35px;
+            height: 40px;
+        }
+        .user {
+            display: none;
         }
     }
 </style>

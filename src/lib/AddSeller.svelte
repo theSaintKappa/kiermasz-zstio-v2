@@ -1,6 +1,6 @@
 <script lang="ts">
     import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
-    import { db } from '../firebaseConfig';
+    import { db, sendEmail } from '../firebaseConfig';
     import { user } from '../stores';
     import Swal from 'sweetalert2';
     import { toast, modal } from '../utils/swal';
@@ -19,6 +19,7 @@
                 const email = (<HTMLInputElement>form.email).value || null;
 
                 if (!firstName || !lastName || !classSymbol) return Swal.showValidationMessage(`Wypełnij wszystkie pola`);
+                if (email && !/[\w-\.]+@([\w-]+\.)+[\w-]{2,4}/.test(email)) return Swal.showValidationMessage(`Niepoprawny adres email`);
 
                 return { firstName, lastName, classSymbol, email };
             },
@@ -46,7 +47,12 @@
             timer: 4000,
         });
 
-        //asd
+        if (email)
+            sendEmail({
+                to: email,
+                subject: 'Witaj na kiermaszu!',
+                html: `Cześć ${firstName},<br><br>Witamy na kiermaszu podręczników używanych w mechaniku!<br>Będziesz otrzymywać zautomatyzowane wiadomości za każdym razem gdy któryś z twoich podręczników zostanie sprzedany.<br>Wszelkie pytania kierować możesz na adres email kiermasz@mechaniktg.pl lub osobiście w bibliotece.<br><br>Pozdrawiamy,<br>Biblioteka ZSTiO`,
+            });
     }
 </script>
 

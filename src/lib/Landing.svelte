@@ -23,8 +23,6 @@
 <div class="grid">
     {#each textbooks as textbook}
         <div>{textbook.title} {textbook.price}zł</div>
-        <div>{textbook.title} {textbook.price}zł</div>
-        <div>{textbook.title} {textbook.price}zł</div>
     {/each}
 </div>
 
