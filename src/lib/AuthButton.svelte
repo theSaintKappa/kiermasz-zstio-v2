@@ -1,14 +1,14 @@
 <script lang="ts">
-    import { lastBackup, user } from '../stores';
-    import { auth } from '../firebaseConfig';
     import { signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
     import Swal from 'sweetalert2';
-    import { toast, modal } from '../utils/swal';
+    import { auth } from '../firebaseConfig';
+    import { lastBackup, user } from '../stores';
+    import { modal, toast } from '../utils/swal';
 
     async function showLoginModal() {
         modal.fire({
             title: 'Zaloguj się',
-            html: `<input type="text" class="swal2-input" placeholder="Email"><input type="password" class="swal2-input" placeholder="Hasło">`,
+            html: `<input type="text" class="swal2-input" placeholder="Email" data-form-type="username"><input type="password" class="swal2-input" placeholder="Hasło" data-form-type="password">`,
             confirmButtonText: 'Zaloguj się',
             showCancelButton: false,
             preConfirm: async () => {
