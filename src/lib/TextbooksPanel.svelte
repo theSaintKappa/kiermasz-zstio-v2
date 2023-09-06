@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { db } from '../firebaseConfig';
-    import { onSnapshot, query, collection, orderBy, addDoc, serverTimestamp, doc, deleteDoc } from 'firebase/firestore';
-    import { converter } from '../utils/converter';
-    import { user, textbookTitles } from '../stores';
+    import { addDoc, collection, deleteDoc, doc, onSnapshot, orderBy, query, serverTimestamp } from 'firebase/firestore';
     import { onMount } from 'svelte';
+    import { db } from '../firebaseConfig';
+    import { textbookTitles, user } from '../stores';
+    import { converter } from '../utils/converter';
 
     let titles: TitleDocumentFull[] = [];
 

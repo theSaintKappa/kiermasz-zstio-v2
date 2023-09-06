@@ -1,6 +1,6 @@
 import './app.css';
-import('@sweetalert2/theme-dark/dark.min.css');
 import App from './App.svelte';
+import('@sweetalert2/theme-dark/dark.min.css');
 
 const app = new App({
     target: document.body,

@@ -81,6 +81,7 @@
     color-scheme: dark light;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+    /* font-size: 20px; */
 
     background-image: radial-gradient(var(--accent-primary) 6.5%, var(--bg-primary) 6.5%);
     background-size: 24px 24px;
@@ -112,7 +113,7 @@ html {
 
 body {
     min-height: 100vh;
-    min-height: 100svh;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -222,9 +223,8 @@ body.swal2-shown > [aria-hidden='true'] {
     transition: 200ms;
 }
 .swal2-html-container .condition-wrapper input:checked + img {
-    box-shadow: 0 0 8px 2px var(--font-light);
-    scale: 1.1;
+    scale: 1.2;
 }
 .swal2-html-container .condition-wrapper input:not(:checked) + img {
-    filter: grayscale(1) blur(2px);
+    filter: grayscale(1) blur(1px);
 }

@@ -1,8 +1,8 @@
 <script lang="ts">
-    import Swal from 'sweetalert2';
-    import { db } from '../firebaseConfig';
     import { doc, serverTimestamp, updateDoc } from 'firebase/firestore';
-    import { toast, modal } from '../utils/swal';
+    import Swal from 'sweetalert2';
+    import { db, sendEmail } from '../firebaseConfig';
+    import { modal, toast } from '../utils/swal';
 
     export let textbook: TextbookDocumentFull;
 
@@ -24,6 +24,13 @@
 
         await updateDoc(textbookDoc, { sold: true, soldAt: serverTimestamp(), 'reservation.status': false });
         toast.fire({ icon: 'success', title: `Oznaczono podręcznik <strong>${textbook.title}</strong> jako sprzedany!`, timer: 2000 });
+        if (textbook.email) {
+            sendEmail({
+                to: textbook.email,
+                subject: 'Podręcznik sprzedany!',
+                html: `Cześć ${textbook.sellerEmailName},<br><br>Podręcznik "${textbook.title}" wystawiony przez ciebie na sprzedaż właśnie został kupiony za ${textbook.price}PLN.<br><br>Pozdrawiamy,<br>Biblioteka ZSTiO`,
+            });
+        }
     }
 
     async function createReservation() {

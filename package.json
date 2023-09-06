@@ -26,6 +26,6 @@
         "@sweetalert2/theme-dark": "^5.0.15",
         "firebase": "^9.22.0",
         "firebase-admin": "^11.9.0",
-        "sweetalert2": "^11.7.5"
+        "sweetalert2": "^11.7.27"
     }
 }

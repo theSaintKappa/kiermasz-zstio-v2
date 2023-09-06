@@ -1,11 +1,11 @@
 <script lang="ts">
-    import { query, collection, orderBy, onSnapshot, addDoc, serverTimestamp } from 'firebase/firestore';
-    import { db } from '../firebaseConfig';
+    import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp } from 'firebase/firestore';
     import { onMount } from 'svelte';
-    import { converter } from '../utils/converter';
     import Swal from 'sweetalert2';
-    import { toast, modal } from '../utils/swal';
-    import { user, textbookTitles } from '../stores';
+    import { db } from '../firebaseConfig';
+    import { textbookTitles, user } from '../stores';
+    import { converter } from '../utils/converter';
+    import { modal, toast } from '../utils/swal';
     import TextbookItem from './TextbookItem.svelte';
     import face1 from '/face-1.svg';
     import face2 from '/face-2.svg';
@@ -95,7 +95,7 @@
 </script>
 
 <details bind:this={detailsElement}>
-    <summary>{seller.firstName} {seller.lastName} | {seller.classSymbol} <button on:click={addTextbook}>Dodaj</button></summary>
+    <summary><span>{seller.firstName} {seller.lastName}{seller.classSymbol ? ` | ${seller.classSymbol}` : ''}</span><button on:click={addTextbook}>Dodaj</button></summary>
     {#if textbooks.length > 0}
         <div>
             {#each textbooks as textbook}
@@ -123,6 +123,9 @@
     summary {
         padding: 0.5rem 0 0.5rem 1.25rem;
         font-weight: 500;
+    }
+    summary > span {
+        cursor: row-resize;
     }
 
     button {

@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { db } from '../firebaseConfig';
-    import { query, collection, where, orderBy, onSnapshot, limit } from 'firebase/firestore';
-    import { converter } from '../utils/converter';
+    import { collection, limit, onSnapshot, orderBy, query, where } from 'firebase/firestore';
     import { onMount } from 'svelte';
+    import { db } from '../firebaseConfig';
     import { lastBackup } from '../stores';
+    import { converter } from '../utils/converter';
 
     onMount(() => {
         const q = query(collection(db, 'backups'), orderBy('createdAt', 'desc'), where('status', '==', 'complete'), limit(1));
@@ -17,4 +17,6 @@
 
 {#if $lastBackup}
     <span>Ostatnia kopia zapasowa: {$lastBackup.createdAt.toDate().toLocaleString()} ({$lastBackup.type ?? 'unknown'})</span>
+{:else}
+    <span>Brak kopii zapasowej</span>
 {/if}

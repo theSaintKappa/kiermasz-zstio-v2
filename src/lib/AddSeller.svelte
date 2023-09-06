@@ -1,9 +1,9 @@
 <script lang="ts">
     import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+    import Swal from 'sweetalert2';
     import { db, sendEmail } from '../firebaseConfig';
     import { user } from '../stores';
-    import Swal from 'sweetalert2';
-    import { toast, modal } from '../utils/swal';
+    import { modal, toast } from '../utils/swal';
 
     async function addSeller() {
         const form = await modal.fire({

@@ -14,6 +14,13 @@
     "hosting": {
         "public": "dist",
         "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+        "redirects": [
+            {
+                "source": "/regulamin",
+                "destination": "https://github.com/theSaintKappa/kiermasz-zstio/blob/master/regulamin.md/",
+                "type": 301
+            }
+        ],
         "rewrites": [
             {
                 "source": "**",
