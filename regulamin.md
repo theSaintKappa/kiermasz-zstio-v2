@@ -10,23 +10,26 @@
 
 4. Podręczniki przeznaczone do sprzedaży wyceniają uczniowie (przy wycenie należy wziąć pod uwagę stan podręcznika) i dostarczają do biblioteki szkolnej od **04.09.2023** do **08.09.2023**.
 
-5. **Każdy** podręcznik obowiązkowo powinien być opisany na wewnętrznej stronie okładki następującymi danymi (najlepiej ołówkiem, **DRUKOWANYMI** literami):
-* **imię** oraz **nazwisko** ucznia sprzedającego podręcznik,
-* **numer** oraz **symbol** klasy do której uczęszcza `(np. 2pT)`,
-* **cena** `patrz punkt 4`,
-* kontaktowy **adres e-mail** służący do otrzymania zautomatyzowanych wiadomości, za każdym razem gdy jeden z podręczników zostanie sprzedany.
+5. **Każdy** podręcznik obowiązkowo powinien być opisany na wewnętrznej stronie okładki następującymi danymi (najlepiej ołówkiem, **DRUKOWANYMI** literami - nie licząc adresu e-mail):
+
+-   **imię** oraz **nazwisko** ucznia sprzedającego podręcznik,
+-   **numer** oraz **symbol** klasy do której uczęszcza `(np. 2pT)`,
+-   **cena** `patrz punkt 4`,
+-   kontaktowy **adres e-mail** służący do otrzymania zautomatyzowanych wiadomości, za każdym razem gdy jeden z podręczników zostanie sprzedany.
 
 6. Odbiór pieniędzy i podręczników, które nie zostały sprzedane odbędzie się od **02.10.2023** do **06.10.2023**.
 
 7. Uczeń otrzymuje całą kwotę za sprzedane podręczniki.
 
 8. Biblioteka nie pośredniczy w ewentualnych reklamacjach.
- 
+
 9. Do udzielania wszelkich informacji na temat kiermaszu upoważnione są tylko i wyłącznie osoby odpowiedzialne za jego organizację i obsługę.
 
 10. Kontakt do biblioteki szkolnej:
-* **Telefon: 32 43 88 507**
-* **E-mail: kiermasz@mechaniktg.pl**
+
+-   **Telefon: 32 43 88 507**
+-   **E-mail: kiermasz@mechaniktg.pl**
 
 # Polityka prywatności
-> Polityka Prywatności kiermaszu podręczników używanych w ZSTiO "Mechanik" dostępna jest pod adresem https://mechaniktg.pl/informacje/dokumenty/polityka-prywatnosci
+
+> Polityka Prywatności obwowiązująca na kiermaszu podręczników używanych w ZSTiO "Mechanik" dostępna jest pod adresem https://mechaniktg.pl/informacje/dokumenty/polityka-prywatnosci
