@@ -54,8 +54,8 @@ exports.reservationCleanup = onSchedule({ schedule: '0 0 * * *', timeZone, regio
     }
 });
 
-// At minute 0 and 30 past every hour from 8 through 16 and 0 on every day-of-week from Monday through Friday.
-exports.scheduleBackup = onSchedule({ schedule: '0,30 8-16,0 * * 1-5', timeZone, region }, async () => {
+// At minute 0 past every hour from 8 through 16 and 0 on every day-of-week from Monday through Friday.
+exports.scheduleBackup = onSchedule({ schedule: '0 8-16,0 * * 1-5', timeZone, region }, async () => {
     await db.collection('backups').add({ createdAt: Timestamp.now(), status: 'pending', type: 'scheduled' });
 });
 

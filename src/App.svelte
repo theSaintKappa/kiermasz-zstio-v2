@@ -1,16 +1,15 @@
 <script lang="ts">
     import AdminPanel from './lib/AdminDasboard.svelte';
     import Header from './lib/Header.svelte';
-    import Landing from './lib/Landing.svelte';
-    import { user } from './stores';
     // import Landing from './lib/Landing.svelte';
+    import { user } from './stores';
 </script>
 
 <Header />
 <main>
     {#if !$user}
         <!-- <Landing /> -->
-        <span>Lista dostępnych podręczników pojawi się w piątek 6.09</span>
+        <span>Lista dostępnych podręczników pojawi się w środę 13.09</span>
     {:else}
         <AdminPanel />
     {/if}
