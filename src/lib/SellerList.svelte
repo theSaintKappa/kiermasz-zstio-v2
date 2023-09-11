@@ -21,13 +21,15 @@
     });
 </script>
 
-<div class="list">
-    {#each sellers as seller}
-        {#key seller.id}
-            <SellerItem {seller} />
-        {/key}
-    {/each}
-</div>
+{#if sellers.length}
+    <div class="list">
+        {#each sellers as seller}
+            {#key seller.id}
+                <SellerItem {seller} />
+            {/key}
+        {/each}
+    </div>
+{/if}
 
 <style>
     .list {

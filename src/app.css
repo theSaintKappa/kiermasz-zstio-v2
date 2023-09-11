@@ -83,14 +83,14 @@
     -webkit-font-smoothing: antialiased;
     /* font-size: 20px; */
 
-    background-image: radial-gradient(var(--accent-primary) 6.5%, var(--bg-primary) 6.5%);
-    background-size: 24px 24px;
+    background-image: radial-gradient(var(--accent-primary) 6%, var(--bg-primary) 6%);
+    background-size: 26px 26px;
     background-position: center top;
 
     --bg-primary: hsl(251, 17%, 7%);
     --bg-secondary: hsl(251, 20%, 11.25%);
-    --accent-primary: hsl(248, 66%, 45%);
-    --accent-secondary: hsl(248, 66%, 30%);
+    --accent-primary: hsla(248, 66%, 45%, 0.65);
+    --accent-secondary: hsla(248, 66%, 30%, 0.9);
     --btn-hover: hsl(248, 66%, 22.5%);
     --font-light: hsla(0, 0%, 93%, 0.933);
     --font-light-opaque: hsla(0, 0%, 75%, 0.65);
@@ -188,7 +188,13 @@ body.swal2-shown > [aria-hidden='true'] {
     max-width: 100% !important;
     margin-inline: 0 !important;
 }
+.swal2-input::placeholder {
+    opacity: 1;
+}
 
+.swal2-html-container {
+    color: var(--font-light) !important;
+}
 .swal2-html-container > form {
     display: flex;
     flex-direction: column;
@@ -205,9 +211,10 @@ body.swal2-shown > [aria-hidden='true'] {
 }
 .swal2-html-container .condition-wrapper > legend {
     padding-inline: 0.5rem;
+    color: var(--font-light);
+    margin-inline: auto;
 }
 .swal2-html-container .condition-wrapper > label {
-    position: relative;
     cursor: pointer;
 }
 .swal2-html-container .condition-wrapper input {
@@ -224,6 +231,7 @@ body.swal2-shown > [aria-hidden='true'] {
 }
 .swal2-html-container .condition-wrapper input:checked + img {
     scale: 1.2;
+    z-index: 1;
 }
 .swal2-html-container .condition-wrapper input:not(:checked) + img {
     filter: grayscale(1) blur(1px);

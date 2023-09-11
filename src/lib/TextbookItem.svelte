@@ -63,14 +63,18 @@
     }
 </script>
 
-<span class:sold={textbook.sold} class:reserved={textbook.reservation.status && !textbook.sold}>
-    {textbook.title} - {textbook.price}zł
+<span class:sold={textbook.sold} class:reserved={textbook.reservation.status && !textbook.sold} class="textbook">
+    {textbook.title}
+    <div class="price">{textbook.price}zł</div>
     {#if !textbook.sold}
-        <button on:click={updateStatus}>Sprzedane</button>
+        <div class="buttons">
+            <button on:click={updateStatus}>Sprzedane</button>
+            {#if !textbook.reservation.status}
+                <button on:click={createReservation}>Rezerwacja</button>
+            {/if}
+        </div>
         {#if textbook.reservation.status}
             <span class="info"><strong>{textbook.reservation.holder}</strong> do <code>{new Date(textbook.reservation.expiry.toMillis()).toLocaleDateString()}</code></span>
-        {:else}
-            <button on:click={createReservation}>Rezerwacja</button>
         {/if}
     {:else if textbook.soldAt}
         <span class="info">Sprzedane <code>{new Date(textbook.soldAt.toMillis()).toLocaleDateString()}</code></span>
@@ -78,12 +82,15 @@
 </span>
 
 <style>
+    :root {
+        --reserved-color: #e9c307;
+    }
     .sold {
         text-decoration: line-through;
         color: var(--font-light-opaque);
     }
     .reserved {
-        color: #f2bf26;
+        color: var(--reserved-color);
     }
     .reserved::before {
         content: '🔒';
@@ -95,29 +102,80 @@
         display: inline-block;
     }
 
+    .textbook {
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
+    .textbook::after {
+        content: '';
+        position: absolute;
+        width: 2px;
+        top: 0;
+        height: 100%;
+        background-color: white;
+    }
+    .textbook:last-of-type::after {
+        height: 50%;
+    }
+    .textbook.reserved::after {
+        background-color: var(--reserved-color);
+    }
+    .textbook.sold::after {
+        background-color: var(--font-light-opaque);
+    }
+    .textbook::before {
+        content: '';
+        height: 2px;
+        width: 25px;
+        margin-right: 0.25rem;
+        background-color: white;
+    }
+    .textbook.reserved::before {
+        background-color: var(--reserved-color);
+    }
+    .textbook.sold::before {
+        background-color: var(--font-light-opaque);
+    }
+
+    .price {
+        background-color: #19da3380;
+        font-weight: 800;
+        border-radius: 4px;
+        padding: 0 0.3rem;
+        margin-left: 0.5rem;
+    }
+
+    .buttons {
+        display: flex;
+        gap: 1rem;
+        margin-inline: 1rem;
+    }
+
     button {
-        font-weight: 700;
+        font-weight: 600;
         background-color: transparent;
         border: none;
         position: relative;
         z-index: 0;
-        margin-left: 1rem;
     }
 
     button::before {
         content: '';
         position: absolute;
-        width: 110%;
-        height: 8px;
+        width: 105%;
+        height: 15%;
         bottom: 1px;
         left: 50%;
         transform: translateX(-50%);
         z-index: -1;
+
         background-color: var(--accent-primary);
-        transition: background-color 100ms;
+        transition: 100ms;
     }
 
     button:hover::before {
         background-color: var(--accent-secondary);
+        height: 30%;
     }
 </style>

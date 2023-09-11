@@ -1,9 +1,8 @@
 <script lang="ts">
-    import { modal } from '../utils/swal';
-    import { lastBackup } from '../stores';
-    import { db } from '../firebaseConfig';
     import { addDoc, collection, Timestamp } from 'firebase/firestore';
-    import { toast } from '../utils/swal';
+    import { db } from '../firebaseConfig';
+    import { lastBackup } from '../stores';
+    import { modal, toast } from '../utils/swal';
 
     async function backup() {
         const result = await modal.fire({

@@ -21,12 +21,19 @@
         display: flex;
         flex-direction: column;
         align-items: start;
-        gap: 0.75rem;
+        gap: 1rem;
     }
 
     div {
         display: flex;
         align-items: center;
         gap: 1rem;
+        width: 100%;
+    }
+
+    @media screen and (max-width: 1000px) {
+        div {
+            justify-content: center;
+        }
     }
 </style>

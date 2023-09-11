@@ -28,7 +28,7 @@ interface SellerDocumentFull extends SellerDocument {
 interface TextbookDataForm {
     title: string;
     price: number;
-    condition: BookCondition;
+    condition: TextbookCondition;
 }
 
 interface TextbookDocument extends TextbookDataForm, Creator {
@@ -49,7 +49,7 @@ interface TextbookDocumentFull extends TextbookDocument {
     id: string;
 }
 
-type BookCondition = 1 | 2 | 3 | 4 | 5;
+type TextbookCondition = 1 | 2 | 3 | 4;
 
 interface BackupDocument {
     createdAt: Timestamp;

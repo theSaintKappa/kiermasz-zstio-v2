@@ -7,10 +7,10 @@
     import { converter } from '../utils/converter';
     import { modal, toast } from '../utils/swal';
     import TextbookItem from './TextbookItem.svelte';
-    import face1 from '/face-1.svg';
-    import face2 from '/face-2.svg';
-    import face3 from '/face-3.svg';
-    import face4 from '/face-4.svg';
+    import face1 from '/condition1.svg';
+    import face2 from '/condition2.svg';
+    import face3 from '/condition3.svg';
+    import face4 from '/condition4.svg';
 
     export let seller: SellerDocumentFull;
 
@@ -51,7 +51,7 @@
                 const form = Swal.getPopup().querySelector('form');
                 const title = (<HTMLInputElement>form.textbookTitle).value;
                 const price = parseFloat((<HTMLInputElement>form.price).value);
-                const condition = <BookCondition>parseInt((<HTMLInputElement>form.condition).value);
+                const condition = <TextbookCondition>parseInt((<HTMLInputElement>form.condition).value);
 
                 if (!title || !price || !condition) return Swal.showValidationMessage(`Wypełnij wszystkie pola`);
 
@@ -95,7 +95,7 @@
 </script>
 
 <details bind:this={detailsElement}>
-    <summary><span>{seller.firstName} {seller.lastName}{seller.classSymbol ? ` | ${seller.classSymbol}` : ''}</span><button on:click={addTextbook}>Dodaj</button></summary>
+    <summary><span>{seller.firstName} {seller.lastName}{seller.classSymbol ? ` | ${seller.classSymbol}` : ''}</span><button on:click={addTextbook}>+ Dodaj</button></summary>
     {#if textbooks.length > 0}
         <div>
             {#each textbooks as textbook}
@@ -122,19 +122,27 @@
 
     summary {
         padding: 0.5rem 0 0.5rem 1.25rem;
-        font-weight: 500;
     }
     summary > span {
-        cursor: row-resize;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+    details[open] summary > span {
+        font-weight: 900;
+        letter-spacing: 1px;
+    }
+    details:not([open]) summary::marker {
+        color: var(--font-light-opaque);
     }
 
     button {
-        font-weight: 700;
+        font-weight: 600;
         background-color: transparent;
         border: none;
         position: relative;
         z-index: 0;
-        margin-left: 1rem;
+        margin-left: 1.25rem;
     }
 
     button::before {
@@ -155,7 +163,8 @@
     }
 
     div {
-        margin: 0.25rem 0 1rem 3rem;
+        position: relative;
+        margin: 0.25rem 0 1rem 2.1rem;
         display: flex;
         flex-direction: column;
         gap: 0.25rem;

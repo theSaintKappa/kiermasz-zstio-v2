@@ -68,7 +68,7 @@
 
 <style>
     button {
-        font-size: clamp(0.75rem, 3.75vw, 1.25rem);
+        font-size: clamp(0.75rem, 3.25vw, 1rem);
         font-weight: 700;
         transition: background-color 75ms ease, scale 100ms ease, box-shadow 75ms ease;
     }

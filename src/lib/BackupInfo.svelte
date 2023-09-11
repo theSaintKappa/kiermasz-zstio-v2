@@ -18,5 +18,12 @@
 {#if $lastBackup}
     <span>Ostatnia kopia zapasowa: {$lastBackup.createdAt.toDate().toLocaleString()} ({$lastBackup.type ?? 'unknown'})</span>
 {:else}
-    <span>Brak kopii zapasowej</span>
+    <span>Brak kopii zapasowych</span>
 {/if}
+
+<style>
+    span {
+        font-weight: 200;
+        font-size: 0.75rem;
+    }
+</style>

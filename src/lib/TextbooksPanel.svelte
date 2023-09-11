@@ -46,9 +46,9 @@
 
 <section>
     <form on:submit|preventDefault={addTitle}>
-        <input type="text" bind:this={titleInput} />
+        <input type="text" bind:this={titleInput} placeholder="Dodaj nazwę podręcznika" />
         <button class="btn btn-hover">
-            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
+            <svg xmlns="http://www.w3.org/2000/svg" height="1.25em" viewBox="0 0 448 512">
                 <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
             </svg>
         </button>
@@ -65,37 +65,60 @@
         display: flex;
         flex-direction: column;
         align-items: end;
+        gap: 1rem;
+        /* position: relative; */
     }
 
     form {
         display: flex;
+        width: 100%;
         justify-content: end;
     }
 
     input {
         border: 2px solid var(--accent-primary);
         background-color: var(--bg-secondary);
-        border-radius: 1000px 0 0 1000px;
+        border-radius: 0.5rem 0 0 0.5rem;
         padding: 0.5rem 1rem;
+        width: 75%;
     }
 
     form > button {
-        border-radius: 0 1000px 1000px 0;
+        border-radius: 0 0.5rem 0.5rem 0;
         aspect-ratio: 1;
     }
 
-    svg {
-        height: 80%;
+    @media screen and (max-width: 1000px) {
+        section {
+            align-items: center;
+        }
+        section::before {
+            content: '';
+            width: 100%;
+            height: 4px;
+            border-radius: 2px;
+            background-color: var(--accent-primary);
+        }
+        form {
+            justify-content: center;
+        }
+        div {
+            align-items: center !important;
+        }
+        div > span {
+            text-align: center !important;
+        }
     }
 
     div {
         display: flex;
         flex-direction: column;
         align-items: end;
-        padding: 1rem 0.5rem;
+        gap: 0.5rem;
     }
     div > span {
-        font-size: 1.15rem;
+        text-align: end;
+        text-wrap: balance;
     }
     div > span > button {
         background-color: transparent;

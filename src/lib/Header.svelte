@@ -1,6 +1,6 @@
 <script lang="ts">
-    import AuthButton from './AuthButton.svelte';
     import { user } from '../stores';
+    import AuthButton from './AuthButton.svelte';
 </script>
 
 <header>
@@ -50,7 +50,7 @@
 
 <style>
     header {
-        width: 100vw;
+        width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -71,7 +71,7 @@
     }
 
     h1 {
-        font-size: clamp(1rem, 6.5vw, 2.5rem);
+        font-size: clamp(1.5rem, 6.5vw, 2.5rem);
         font-weight: 800;
         white-space: nowrap;
     }
@@ -106,6 +106,8 @@
         svg {
             height: 40px;
         }
+    }
+    @media screen and (max-width: 1100px) {
         .user {
             display: none;
         }

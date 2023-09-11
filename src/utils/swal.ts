@@ -24,3 +24,7 @@ export const modal = Swal.mixin({
     cancelButtonText: 'Anuluj',
     reverseButtons: true,
 });
+
+document.onkeyup = (e) => {
+    if (e.key === 'Enter' && Swal.getPopup()) Swal.clickConfirm();
+};
