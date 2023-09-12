@@ -1,11 +1,13 @@
 <script lang="ts">
-    import SellersPanel from './SellersPanel.svelte';
-    import TextbooksPanel from './TextbooksPanel.svelte';
+    import { user } from '../../stores';
+    import SellerPanel from './SellerPanel.svelte';
+    import TextbookPanel from './TextbookPanel.svelte';
 </script>
 
+<svelte:head><title>Kiermasz ZSTiO - 👤{$user?.displayName}</title></svelte:head>
 <div>
-    <SellersPanel />
-    <TextbooksPanel />
+    <SellerPanel />
+    <TextbookPanel />
 </div>
 
 <style>
@@ -14,7 +16,7 @@
     }
     div {
         width: calc(100% - (2 * var(--panel-margin)));
-        margin: var(--panel-margin) 0;
+        margin: var(--panel-margin) 0 calc(var(--panel-margin) * 6);
         display: grid;
         gap: var(--panel-margin);
         grid-template-columns: 60% 1fr;
@@ -27,9 +29,4 @@
             grid-template-columns: 1fr;
         }
     }
-    /* @media screen and (max-width: 500px) {
-        div {
-            width: calc(100% - (0 * var(--panel-margin)));
-        }
-    } */
 </style>

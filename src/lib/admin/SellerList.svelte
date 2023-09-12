@@ -1,8 +1,8 @@
 <script lang="ts">
     import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
     import { onMount } from 'svelte';
-    import { db } from '../firebaseConfig';
-    import { converter } from '../utils/converter';
+    import { db } from '../../firebaseConfig';
+    import { converter } from '../../utils/converter';
     import SellerItem from './SellerItem.svelte';
 
     let sellers: SellerDocumentFull[] = [];

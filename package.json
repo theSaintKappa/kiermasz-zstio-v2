@@ -1,7 +1,7 @@
 {
-    "name": "kiermasz-zstio-v2",
+    "name": "kiermasz-zstio",
     "private": true,
-    "version": "0.0.0",
+    "version": "1.0.0",
     "type": "module",
     "description": "Web app made to organise my school's annual book fair.",
     "author": "SaintKappa",
@@ -11,7 +11,8 @@
         "build": "vite build",
         "preview": "vite preview",
         "check": "svelte-check --tsconfig ./tsconfig.json",
-        "deploy": "npm run build && firebase deploy && rm -rf dist"
+        "deploy": "npm run build && echo \nDeploying to firebase && firebase deploy && rm -rf dist",
+        "deploy-hosting": "npm run build && echo \nDeploying to firebase && firebase deploy --only hosting && rm -rf dist"
     },
     "devDependencies": {
         "@sveltejs/vite-plugin-svelte": "^2.0.3",

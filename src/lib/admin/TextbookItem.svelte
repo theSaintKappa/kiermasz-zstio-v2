@@ -1,8 +1,8 @@
 <script lang="ts">
     import { doc, serverTimestamp, updateDoc } from 'firebase/firestore';
     import Swal from 'sweetalert2';
-    import { db, sendEmail } from '../firebaseConfig';
-    import { modal, toast } from '../utils/swal';
+    import { db, sendEmail } from '../../firebaseConfig';
+    import { modal, toast } from '../../utils/swal';
 
     export let textbook: TextbookDocumentFull;
 
@@ -139,7 +139,7 @@
     }
 
     .price {
-        background-color: #19da3380;
+        background-color: var(--price-color);
         font-weight: 800;
         border-radius: 4px;
         padding: 0 0.3rem;

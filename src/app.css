@@ -81,7 +81,6 @@
     color-scheme: dark light;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
-    /* font-size: 20px; */
 
     background-image: radial-gradient(var(--accent-primary) 6%, var(--bg-primary) 6%);
     background-size: 26px 26px;
@@ -94,9 +93,7 @@
     --btn-hover: hsl(248, 66%, 22.5%);
     --font-light: hsla(0, 0%, 93%, 0.933);
     --font-light-opaque: hsla(0, 0%, 75%, 0.65);
-
-    /* TODO: up the font size to 20px */
-    /* font-size: 20px; */
+    --price-color: #19da3380;
 }
 
 *,
@@ -114,6 +111,7 @@ html {
 body {
     min-height: 100vh;
     min-height: 100dvh;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;

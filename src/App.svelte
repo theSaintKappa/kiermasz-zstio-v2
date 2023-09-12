@@ -1,27 +1,22 @@
 <script lang="ts">
-    import AdminPanel from './lib/AdminDasboard.svelte';
+    import Footer from './lib/Footer.svelte';
     import Header from './lib/Header.svelte';
-    // import Landing from './lib/Landing.svelte';
+    import DasboardPanels from './lib/admin/DasboardPanels.svelte';
+    import Landing from './lib/customer/Landing.svelte';
     import { user } from './stores';
 </script>
 
 <Header />
 <main>
-    {#if !$user}
-        <!-- <Landing /> -->
-        <span>Lista dostępnych podręczników pojawi się w środę 13.09</span>
+    {#if $user}
+        <DasboardPanels />
     {:else}
-        <AdminPanel />
+        <Landing />
     {/if}
 </main>
+<Footer />
 
 <style>
-    span {
-        font-size: 1.5rem;
-        font-weight: 500;
-        margin: 1rem 0;
-    }
-
     main {
         width: 100%;
         display: flex;

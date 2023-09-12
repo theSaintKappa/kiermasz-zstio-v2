@@ -2,10 +2,10 @@
     import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp } from 'firebase/firestore';
     import { onMount } from 'svelte';
     import Swal from 'sweetalert2';
-    import { db } from '../firebaseConfig';
-    import { textbookTitles, user } from '../stores';
-    import { converter } from '../utils/converter';
-    import { modal, toast } from '../utils/swal';
+    import { db } from '../../firebaseConfig';
+    import { textbookTitles, user } from '../../stores';
+    import { converter } from '../../utils/converter';
+    import { modal, toast } from '../../utils/swal';
     import TextbookItem from './TextbookItem.svelte';
     import face1 from '/condition1.svg';
     import face2 from '/condition2.svg';

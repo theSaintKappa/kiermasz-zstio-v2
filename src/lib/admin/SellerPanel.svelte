@@ -1,6 +1,6 @@
 <script lang="ts">
-    import AccordionButtons from './AccordionButtons.svelte';
-    import AddSeller from './AddSeller.svelte';
+    import AccordionButton from './AccordionButton.svelte';
+    import AddSellerButton from './AddSellerButton.svelte';
     import BackupButton from './BackupButton.svelte';
     import BackupInfo from './BackupInfo.svelte';
     import SellerList from './SellerList.svelte';
@@ -8,8 +8,8 @@
 
 <section>
     <div>
-        <AddSeller />
-        <AccordionButtons />
+        <AddSellerButton />
+        <AccordionButton />
         <BackupButton />
     </div>
     <SellerList />
