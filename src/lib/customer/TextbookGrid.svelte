@@ -1,7 +1,7 @@
 <script lang="ts">
     import { collectionGroup, onSnapshot, orderBy, query, where } from 'firebase/firestore';
     import { onMount } from 'svelte';
-    import { blur, fade } from 'svelte/transition';
+    import { blur } from 'svelte/transition';
     import { db } from '../../firebaseConfig';
     import { searchQuery } from '../../stores';
     import { converter } from '../../utils/converter';
@@ -10,7 +10,7 @@
     let filteredTextbooks: TextbookDocumentFull[] = [];
 
     onMount(() => {
-        const q = query(collectionGroup(db, 'textbooks'), where('sold', '==', false), orderBy('title', 'asc'));
+        const q = query(collectionGroup(db, 'textbooks'), where('sold', '==', false), where('reservation.status', '==', false), orderBy('title', 'asc'));
         const unsubscribe = onSnapshot(q.withConverter(converter<TextbookDocument>()), (snapshot) => {
             let textbookDocuments: TextbookDocumentFull[] = [];
             for (const doc of snapshot.docs) {

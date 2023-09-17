@@ -4,6 +4,7 @@
     import TextbookGrid from './TextbookGrid.svelte';
 </script>
 
+<svelte:head><title>Kiermasz ZSTiO</title></svelte:head>
 <div>
     <SearchBar />
     <TextbookGrid />

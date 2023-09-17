@@ -55,8 +55,8 @@
             });
     }
 
-    document.onkeydown = (e) => {
-        if (e.key === 'Enter' && e.ctrlKey) addSeller();
+    document.onkeyup = (e) => {
+        if (e.key === 'Enter' && e.ctrlKey && !Swal.getPopup()) addSeller();
     };
 </script>
 

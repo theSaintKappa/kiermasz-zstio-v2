@@ -14,6 +14,7 @@
     :root {
         --panel-margin: 1.75rem;
     }
+
     div {
         width: calc(100% - (2 * var(--panel-margin)));
         margin: var(--panel-margin) 0 calc(var(--panel-margin) * 6);
@@ -21,6 +22,7 @@
         gap: var(--panel-margin);
         grid-template-columns: 60% 1fr;
     }
+
     @media screen and (max-width: 1000px) {
         :root {
             --panel-margin: 1rem;

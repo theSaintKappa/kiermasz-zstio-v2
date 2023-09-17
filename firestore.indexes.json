@@ -19,12 +19,16 @@
             "queryScope": "COLLECTION_GROUP",
             "fields": [
                 {
+                    "fieldPath": "reservation.status",
+                    "order": "ASCENDING"
+                },
+                {
                     "fieldPath": "sold",
                     "order": "ASCENDING"
                 },
                 {
-                    "fieldPath": "createdAt",
-                    "order": "DESCENDING"
+                    "fieldPath": "title",
+                    "order": "ASCENDING"
                 }
             ]
         },

@@ -1,9 +1,9 @@
 {
     "name": "kiermasz-zstio",
     "private": true,
-    "version": "1.0.0",
+    "version": "1.0.1",
     "type": "module",
-    "description": "Web app made to organise my school's annual book fair.",
+    "description": "Web app made to organize my high school's annual used book fair. Built with Svelte & Firebase.",
     "author": "SaintKappa",
     "license": "MIT",
     "scripts": {
@@ -11,8 +11,8 @@
         "build": "vite build",
         "preview": "vite preview",
         "check": "svelte-check --tsconfig ./tsconfig.json",
-        "deploy": "npm run build && echo \nDeploying to firebase && firebase deploy && rm -rf dist",
-        "deploy-hosting": "npm run build && echo \nDeploying to firebase && firebase deploy --only hosting && rm -rf dist"
+        "deploy": "npm run build && firebase deploy && rm -rf dist",
+        "deploy-hosting": "npm run build && firebase deploy --only hosting && rm -rf dist"
     },
     "devDependencies": {
         "@sveltejs/vite-plugin-svelte": "^2.0.3",
