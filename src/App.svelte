@@ -16,7 +16,7 @@
     {/if}
 </main>
 <Footer />
-{#if $writingDisabled}
+{#if $writingDisabled && $user}
     <div>Wprowadzanie zmian zostało wyłączone</div>
 {/if}
 

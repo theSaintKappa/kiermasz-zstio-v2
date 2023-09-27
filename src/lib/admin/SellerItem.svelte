@@ -35,31 +35,23 @@
     $: titleOptions = $textbookTitles.map((title) => `<option value="${title}">`).join('');
 
     async function addTextbook() {
-        const result = await modal.fire({
+        await modal.fire({
             title: `Dodaj podręcznik\n<code>${seller.firstName} ${seller.lastName} ${seller.classSymbol}</code>`,
             html: `<form><input list="titles" class="swal2-input" placeholder="Nazwa" name="textbookTitle" data-form-type="other"><datalist id="titles">${titleOptions}</datalist><input type="number" class="swal2-input" placeholder="Cena" name="price" data-form-type="other"><fieldset class="condition-wrapper"><legend>Stan fizyczny</legend><label><input type="radio" name="condition" value="1" /><img src=${face1} alt="1" /></label><label><input type="radio" name="condition" value="2" /><img src=${face2} alt="2" /></label><label><input type="radio" name="condition" value="3" checked /><img src=${face3} alt="3" /></label><label><input type="radio" name="condition" value="4" /><img src=${face4} alt="4" /></label></fieldset></form>`,
             confirmButtonText: 'Dodaj',
-            didRender: () => {
-                const radios = Swal.getPopup().querySelectorAll('input[type="radio"]');
-                const fieldset = Swal.getPopup().querySelector('fieldset');
-                const colors = ['#ff3313', '#ffcd19', '#82ff28', '#ac00b8'];
-                fieldset.style.borderColor = colors[parseInt((<HTMLInputElement>Swal.getPopup().querySelector('input[type="radio"]:checked')).value) - 1];
-                radios.forEach((radio: HTMLInputElement) => (radio.onchange = (e) => (fieldset.style.borderColor = colors[parseInt((<HTMLInputElement>e.target).value) - 1])));
-            },
-            preConfirm: async () => {
-                const form = Swal.getPopup().querySelector('form');
-                const title = (<HTMLInputElement>form.textbookTitle).value;
-                const price = parseFloat((<HTMLInputElement>form.price).value);
-                const condition = <TextbookCondition>parseInt((<HTMLInputElement>form.condition).value);
-
-                if (!title || !price || !condition) return Swal.showValidationMessage(`Wypełnij wszystkie pola`);
-
-                return { title, price, condition };
-            },
+            didRender,
+            preConfirm,
         });
-        if (!result.isConfirmed) return;
+    }
 
-        const { title, price, condition } = <TextbookDataForm>result.value;
+    async function preConfirm() {
+        const form = Swal.getPopup().querySelector('form');
+        const title = (<HTMLInputElement>form.textbookTitle).value;
+        const price = parseFloat((<HTMLInputElement>form.price).value);
+        const condition = <TextbookCondition>parseInt((<HTMLInputElement>form.condition).value);
+
+        if (!title || !price || !condition) return Swal.showValidationMessage(`Wypełnij wszystkie pola`);
+
         const textbookDocument: TextbookDocument = {
             title,
             price,
@@ -68,21 +60,14 @@
             soldAt: null,
             email: seller.email,
             sellerEmailName: `${seller.firstName}`,
-            reservation: {
-                status: false,
-                holder: null,
-                expiry: null,
-            },
-            creator: {
-                uid: $user.uid,
-                email: $user.email,
-            },
+            reservation: { status: false, holder: null, expiry: null },
+            creator: { uid: $user.uid, email: $user.email },
             parentId: seller.id,
             createdAt: serverTimestamp(),
         };
 
         try {
-            addDoc(collection(db, 'sellers', seller.id, 'textbooks'), textbookDocument);
+            await addDoc(collection(db, 'sellers', seller.id, 'textbooks'), textbookDocument);
 
             toast.fire({
                 icon: 'success',
@@ -90,17 +75,28 @@
                 text: `${title} - ${price}zł`,
             });
         } catch (err) {
-            fireErrorModal(err, 'Wystąpił błąd podczas dodawania podręcznika.');
+            return fireErrorModal(err, 'Wystąpił błąd podczas dodawania podręcznika.');
         }
 
         detailsElement?.setAttribute('open', '');
     }
+
+    function didRender() {
+        const radios = Swal.getPopup().querySelectorAll('input[type="radio"]');
+        const fieldset = Swal.getPopup().querySelector('fieldset');
+        const colors = ['#ff3313', '#ffcd19', '#82ff28', '#ac00b8'];
+        fieldset.style.borderColor = colors[parseInt((<HTMLInputElement>Swal.getPopup().querySelector('input[type="radio"]:checked')).value) - 1];
+        radios.forEach((radio: HTMLInputElement) => (radio.onchange = (e) => (fieldset.style.borderColor = colors[parseInt((<HTMLInputElement>e.target).value) - 1])));
+    }
 </script>
 
 <details bind:this={detailsElement}>
-    <summary><span>{seller.firstName} {seller.lastName}{seller.classSymbol ? ` | ${seller.classSymbol}` : ''}</span><button on:click={addTextbook} disabled={$writingDisabled || null}>+ Dodaj</button></summary>
-    {#if textbooks.length > 0}
-        <div class="textbook-list">
+    <summary>
+        <span>{seller.firstName} {seller.lastName}{seller.classSymbol ? ` | ${seller.classSymbol}` : ''}</span>
+        <button on:click={addTextbook} aria-label="Dodaj podręcznik" disabled={$writingDisabled || null}>+ Dodaj</button>
+    </summary>
+    <div class="textbook-list">
+        {#if textbooks.length > 0}
             {#each textbooks as textbook}
                 {#key textbook.id}
                     <TextbookItem {textbook} />
@@ -110,12 +106,10 @@
                 <span>Sprzedane: <strong>{textbooks.filter((textbook) => textbook.sold).length}</strong>/<strong>{textbooks.length}</strong></span>
                 <span>Kwota wypłaty: <strong>{textbooks.filter((textbook) => textbook.sold).reduce((acc, curr) => acc + curr.price, 0)}</strong>zł</span>
             </div>
-        </div>
-    {:else}
-        <div>
+        {:else}
             <span>Brak podręczników</span>
-        </div>
-    {/if}
+        {/if}
+    </div>
 </details>
 
 <style>

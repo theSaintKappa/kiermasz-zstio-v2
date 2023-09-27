@@ -79,9 +79,9 @@
     <div class="price">{textbook.price}zł</div>
     {#if !textbook.sold}
         <div class="buttons">
-            <button on:click={updateStatus} disabled={$writingDisabled || null}>Sprzedane</button>
+            <button on:dblclick={updateStatus} disabled={$writingDisabled || null} aria-label="Oznacz jako sprzedany">Sprzedane</button>
             {#if !textbook.reservation.status}
-                <button on:click={createReservation} disabled={$writingDisabled || null}>Rezerwacja</button>
+                <button on:click={createReservation} disabled={$writingDisabled || null} aria-label="Dodaj rezerwację">Rezerwacja</button>
             {/if}
         </div>
         {#if textbook.reservation.status}

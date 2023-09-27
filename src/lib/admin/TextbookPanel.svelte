@@ -55,7 +55,7 @@
     </form>
     <div>
         {#each titles as title}
-            <span>{title.name} <button on:click={() => removeTitle(title.id)} disabled={$writingDisabled || null}>🗑️</button></span>
+            <span>{title.name} <button on:click={() => removeTitle(title.id)} disabled={$writingDisabled || null} aria-label="Usuń tytuł">🗑️</button></span>
         {/each}
     </div>
 </section>

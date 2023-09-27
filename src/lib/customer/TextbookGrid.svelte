@@ -26,15 +26,17 @@
         if (query === '') return (filteredTextbooks = textbooks);
         filteredTextbooks = textbooks.filter((textbook) => textbook.title.toLowerCase().includes(query.toLowerCase()));
     });
+
+    const conditions = ['akceptowalny', 'dostateczny', 'bardzo dobry', 'jak nowy'];
 </script>
 
 <section>
-    {#each filteredTextbooks as textbook, i}
-        <div class="card" in:blur={{ delay: i * 7.5, duration: 750 }}>
-            <span class="title">{textbook.title}</span>
+    {#each filteredTextbooks as textbook, i (textbook.id)}
+        <div class="card" in:blur={{ delay: i * 7.5, duration: 400 }}>
+            <span class="title" title={textbook.title}>{textbook.title}</span>
             <div class="info">
                 <span class="price">{textbook.price}zł</span>
-                <img src="/condition{textbook.condition}.svg" alt="" />
+                <img src="/condition{textbook.condition}.svg" alt="" title="Stan fizyczny: {conditions[textbook.condition - 1]}" />
             </div>
         </div>
     {/each}

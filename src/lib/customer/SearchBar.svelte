@@ -12,7 +12,7 @@
 <section>
     <div>
         <input type="text" bind:value={$searchQuery} bind:this={inputField} aria-label="wyszukaj tytułów" placeholder="🔍 Wyszukaj tytułów..." />
-        <button on:click={clearInput}>❌</button>
+        <button on:click={clearInput} aria-label="Wyczyść pole wyszukiwania">❌</button>
     </div>
 </section>
 
@@ -33,7 +33,6 @@
         position: relative;
         display: flex;
         align-items: center;
-        /* overflow: hidden; */
     }
 
     input {

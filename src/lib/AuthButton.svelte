@@ -60,9 +60,9 @@
 </script>
 
 {#if $user}
-    <button on:click={logout} class="btn">Wyloguj się</button>
+    <button on:click={logout} class="btn" aria-label="Wyloguj się">Wyloguj się</button>
 {:else}
-    <button on:click={showLoginModal} class="btn">Zaloguj się</button>
+    <button on:click={showLoginModal} class="btn" aria-label="Zaloguj się">Zaloguj się</button>
 {/if}
 
 <style>
