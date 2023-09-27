@@ -2,7 +2,8 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { getFunctions, httpsCallable } from 'firebase/functions';
-import { user } from './stores';
+import { get } from 'svelte/store';
+import { user, writingDisabled } from './stores';
 
 const firebaseConfig = {
     apiKey: 'AIzaSyDfo9VTuTgc_72ysFrLMtFZilE7ZIzMz3o',
@@ -18,6 +19,10 @@ export const db = getFirestore(app);
 export const auth = getAuth(app);
 export const functions = getFunctions(app, 'europe-central2');
 
-export const sendEmail = httpsCallable(functions, 'sendEmail');
+export const _sendEmail = httpsCallable(functions, 'sendEmail');
+export function sendEmail(data: { to: string; subject: string; html: string }) {
+    if (get(writingDisabled)) return;
+    return _sendEmail(data);
+}
 
 onAuthStateChanged(auth, (u) => user.set(u));

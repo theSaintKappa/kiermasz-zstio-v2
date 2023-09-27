@@ -2,15 +2,14 @@
     import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
     import Swal from 'sweetalert2';
     import { db, sendEmail } from '../../firebaseConfig';
-    import { user } from '../../stores';
-    import { modal, toast } from '../../utils/swal';
+    import { user, writingDisabled } from '../../stores';
+    import { fireErrorModal, modal, toast } from '../../utils/swal';
 
     async function addSeller() {
         const form = await modal.fire({
             title: `Dodaj nowego sprzedawcę`,
             html: `<form><input class="swal2-input" placeholder="Imię" name="firstName" data-form-type="other"><input class="swal2-input" placeholder="Nazwisko" name="lastName" data-form-type="other"><input class="swal2-input" placeholder="Klasa" name="classSymbol" data-form-type="other"><input class="swal2-input" placeholder="Email" name="email" data-form-type="other"></form>`,
             confirmButtonText: 'Dodaj',
-            didOpen: () => (<HTMLInputElement>Swal.getPopup().querySelector('form')[0]).focus(),
             preConfirm: async () => {
                 const form = Swal.getPopup().querySelector('form');
                 const firstName = (<HTMLInputElement>form.firstName).value;
@@ -38,14 +37,17 @@
             },
             createdAt: serverTimestamp(),
         };
-        addDoc(collection(db, 'sellers'), sellerDoc);
+        try {
+            addDoc(collection(db, 'sellers'), sellerDoc);
 
-        toast.fire({
-            icon: 'success',
-            title: `Dodabno sprzedawcę`,
-            text: `${firstName} ${lastName} ${classSymbol}`,
-            timer: 4000,
-        });
+            toast.fire({
+                icon: 'success',
+                title: `Dodabno sprzedawcę`,
+                text: `${firstName} ${lastName} ${classSymbol}`,
+            });
+        } catch (err) {
+            return fireErrorModal(err, 'Wystąpił błąd podczas dodawania sprzedawcy.');
+        }
 
         if (email)
             sendEmail({
@@ -60,7 +62,7 @@
     };
 </script>
 
-<button on:click={addSeller} aria-label="dodaj sprzedawcę" class="btn btn-hover">
+<button on:click={addSeller} aria-label="dodaj sprzedawcę" class="btn btn-hover" disabled={$writingDisabled || null}>
     <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 640 512">
         <path
             d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"
@@ -74,8 +76,7 @@
         display: flex;
         align-items: center;
         gap: 0.5rem;
-        /* font-size: clamp(0.75rem, 3.75vw, 1.25rem); */
-        font-size: 1.25rem;
+        font-size: clamp(1rem, 4vw, 1.25rem);
         font-weight: 900;
         transition: background-color 75ms ease;
     }

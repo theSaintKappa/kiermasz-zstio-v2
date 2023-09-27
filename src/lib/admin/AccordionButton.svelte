@@ -23,5 +23,6 @@
 
     svg {
         transition: rotate 150ms ease;
+        height: 85%;
     }
 </style>

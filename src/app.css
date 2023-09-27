@@ -92,8 +92,9 @@
     --accent-secondary: hsla(248, 66%, 30%, 0.9);
     --btn-hover: hsl(248, 66%, 22.5%);
     --font-light: hsla(0, 0%, 93%, 0.933);
-    --font-light-opaque: hsla(0, 0%, 75%, 0.65);
+    --font-light-opaque: hsla(0, 0%, 75%, 0.45);
     --price-color: #19da3380;
+    --warning-color: #eed202;
 }
 
 *,
@@ -120,7 +121,6 @@ body {
 img,
 svg {
     display: block;
-    width: 100%;
 }
 
 svg {
@@ -137,6 +137,10 @@ button {
     color: inherit;
     white-space: nowrap;
 }
+button[disabled] {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
 .btn {
     background-color: var(--accent-secondary);
     border: 2px solid;
@@ -144,8 +148,11 @@ button {
     padding: 0.4rem 0.5rem;
     border-radius: 0.5rem;
     color: var(--font-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.btn-hover:hover {
+.btn-hover:hover:not([disabled]) {
     background-color: var(--btn-hover);
 }
 

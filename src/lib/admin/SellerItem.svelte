@@ -3,9 +3,9 @@
     import { onMount } from 'svelte';
     import Swal from 'sweetalert2';
     import { db } from '../../firebaseConfig';
-    import { textbookTitles, user } from '../../stores';
+    import { textbookTitles, user, writingDisabled } from '../../stores';
     import { converter } from '../../utils/converter';
-    import { modal, toast } from '../../utils/swal';
+    import { fireErrorModal, modal, toast } from '../../utils/swal';
     import TextbookItem from './TextbookItem.svelte';
     import face1 from '/condition1.svg';
     import face2 from '/condition2.svg';
@@ -39,8 +39,7 @@
             title: `Dodaj podręcznik\n<code>${seller.firstName} ${seller.lastName} ${seller.classSymbol}</code>`,
             html: `<form><input list="titles" class="swal2-input" placeholder="Nazwa" name="textbookTitle" data-form-type="other"><datalist id="titles">${titleOptions}</datalist><input type="number" class="swal2-input" placeholder="Cena" name="price" data-form-type="other"><fieldset class="condition-wrapper"><legend>Stan fizyczny</legend><label><input type="radio" name="condition" value="1" /><img src=${face1} alt="1" /></label><label><input type="radio" name="condition" value="2" /><img src=${face2} alt="2" /></label><label><input type="radio" name="condition" value="3" checked /><img src=${face3} alt="3" /></label><label><input type="radio" name="condition" value="4" /><img src=${face4} alt="4" /></label></fieldset></form>`,
             confirmButtonText: 'Dodaj',
-            didOpen: () => {
-                (<HTMLInputElement>Swal.getPopup().querySelector('form')[0]).focus();
+            didRender: () => {
                 const radios = Swal.getPopup().querySelectorAll('input[type="radio"]');
                 const fieldset = Swal.getPopup().querySelector('fieldset');
                 const colors = ['#ff3313', '#ffcd19', '#82ff28', '#ac00b8'];
@@ -81,28 +80,36 @@
             parentId: seller.id,
             createdAt: serverTimestamp(),
         };
-        addDoc(collection(db, 'sellers', seller.id, 'textbooks'), textbookDocument);
 
-        toast.fire({
-            icon: 'success',
-            title: `Dodabno podręcznik`,
-            text: `${title} - ${price}zł`,
-            timer: 4000,
-        });
+        try {
+            addDoc(collection(db, 'sellers', seller.id, 'textbooks'), textbookDocument);
+
+            toast.fire({
+                icon: 'success',
+                title: `Dodabno podręcznik`,
+                text: `${title} - ${price}zł`,
+            });
+        } catch (err) {
+            fireErrorModal(err, 'Wystąpił błąd podczas dodawania podręcznika.');
+        }
 
         detailsElement?.setAttribute('open', '');
     }
 </script>
 
 <details bind:this={detailsElement}>
-    <summary><span>{seller.firstName} {seller.lastName}{seller.classSymbol ? ` | ${seller.classSymbol}` : ''}</span><button on:click={addTextbook}>+ Dodaj</button></summary>
+    <summary><span>{seller.firstName} {seller.lastName}{seller.classSymbol ? ` | ${seller.classSymbol}` : ''}</span><button on:click={addTextbook} disabled={$writingDisabled || null}>+ Dodaj</button></summary>
     {#if textbooks.length > 0}
-        <div>
+        <div class="textbook-list">
             {#each textbooks as textbook}
                 {#key textbook.id}
                     <TextbookItem {textbook} />
                 {/key}
             {/each}
+            <div class="list-summary">
+                <span>Sprzedane: <strong>{textbooks.filter((textbook) => textbook.sold).length}</strong>/<strong>{textbooks.length}</strong></span>
+                <span>Kwota wypłaty: <strong>{textbooks.filter((textbook) => textbook.sold).reduce((acc, curr) => acc + curr.price, 0)}</strong>zł</span>
+            </div>
         </div>
     {:else}
         <div>
@@ -162,11 +169,22 @@
         background-color: var(--accent-secondary);
     }
 
-    div {
-        position: relative;
-        margin: 0.25rem 0 1rem 2.1rem;
+    .textbook-list {
+        margin: 0.25rem 2rem 0.5rem;
         display: flex;
         flex-direction: column;
         gap: 0.25rem;
+    }
+
+    .list-summary {
+        margin: 0.25rem 0 0.25rem;
+        display: flex;
+        gap: 0.5rem;
+    }
+    .list-summary > span {
+        font-style: italic;
+        padding: 0.1rem 0.4rem;
+        border-radius: 0.25rem;
+        background-color: var(--accent-secondary);
     }
 </style>

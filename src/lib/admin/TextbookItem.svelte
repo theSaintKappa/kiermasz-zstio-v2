@@ -2,7 +2,8 @@
     import { doc, serverTimestamp, updateDoc } from 'firebase/firestore';
     import Swal from 'sweetalert2';
     import { db, sendEmail } from '../../firebaseConfig';
-    import { modal, toast } from '../../utils/swal';
+    import { writingDisabled } from '../../stores';
+    import { fireErrorModal, modal, toast } from '../../utils/swal';
 
     export let textbook: TextbookDocumentFull;
 
@@ -22,8 +23,14 @@
             if (!result.isConfirmed) return;
         }
 
-        await updateDoc(textbookDoc, { sold: true, soldAt: serverTimestamp(), 'reservation.status': false });
-        toast.fire({ icon: 'success', title: `Oznaczono podręcznik <strong>${textbook.title}</strong> jako sprzedany!`, timer: 2000 });
+        try {
+            await updateDoc(textbookDoc, { sold: true, soldAt: serverTimestamp(), 'reservation.status': false });
+
+            toast.fire({ icon: 'success', title: `Oznaczono podręcznik <strong>${textbook.title}</strong> jako sprzedany!`, timer: 2000 });
+        } catch (err) {
+            return fireErrorModal(err, 'Wystąpił błąd podczas oznaczania podręcznika jako sprzedany.');
+        }
+
         if (textbook.email) {
             sendEmail({
                 to: textbook.email,
@@ -38,7 +45,6 @@
             title: `Zarezerwuj <strong>${textbook.title}</strong>\n(do końca dnia)`,
             html: `<form><input class="swal2-input" placeholder="Rezerwacja dla" name="holder" data-form-type="other"><input type="date" class="swal2-input" placeholder="Rezerwacja do" name="expiry" data-form-type="other"></form>`,
             confirmButtonText: 'Zarezerwuj',
-            didOpen: () => (<HTMLInputElement>Swal.getPopup().querySelector('form')[0]).focus(),
             preConfirm: async () => {
                 const form = Swal.getPopup().querySelector('form');
                 const holder = (<HTMLInputElement>form.holder).value;
@@ -58,48 +64,54 @@
 
         const { holder, expiry } = <{ holder: string; expiry: Date }>form.value;
 
-        await updateDoc(textbookDoc, { reservation: { status: true, holder, expiry } });
-        toast.fire({ icon: 'success', title: `Zarezerwowano <strong>${textbook.title}</strong> do <code>${expiryLocaleDateString}</code> dla <strong>${textbook.reservation.holder}</strong>` });
+        try {
+            await updateDoc(textbookDoc, { reservation: { status: true, holder, expiry } });
+
+            toast.fire({ icon: 'success', title: `Zarezerwowano <strong>${textbook.title}</strong> do <code>${expiryLocaleDateString}</code> dla <strong>${textbook.reservation.holder}</strong>` });
+        } catch (err) {
+            fireErrorModal(err, 'Wystąpił błąd podczas tworzenia rezerwacji.');
+        }
     }
 </script>
 
 <span class:sold={textbook.sold} class:reserved={textbook.reservation.status && !textbook.sold} class="textbook">
-    {textbook.title}
+    <span class:crossed-out={textbook.sold}>{textbook.title}</span>
     <div class="price">{textbook.price}zł</div>
     {#if !textbook.sold}
         <div class="buttons">
-            <button on:click={updateStatus}>Sprzedane</button>
+            <button on:click={updateStatus} disabled={$writingDisabled || null}>Sprzedane</button>
             {#if !textbook.reservation.status}
-                <button on:click={createReservation}>Rezerwacja</button>
+                <button on:click={createReservation} disabled={$writingDisabled || null}>Rezerwacja</button>
             {/if}
         </div>
         {#if textbook.reservation.status}
             <span class="info"><strong>{textbook.reservation.holder}</strong> do <code>{new Date(textbook.reservation.expiry.toMillis()).toLocaleDateString()}</code></span>
         {/if}
     {:else if textbook.soldAt}
-        <span class="info">Sprzedane <code>{new Date(textbook.soldAt.toMillis()).toLocaleDateString()}</code></span>
+        <span class="info">{new Date(textbook.soldAt.toMillis()).toLocaleString()}</span>
     {/if}
 </span>
 
 <style>
-    :root {
-        --reserved-color: #e9c307;
-    }
     .sold {
-        text-decoration: line-through;
+        font-style: italic;
         color: var(--font-light-opaque);
     }
+    .crossed-out {
+        text-decoration: line-through;
+        opacity: 0.75;
+    }
     .reserved {
-        color: var(--reserved-color);
+        color: var(--warning-color);
     }
     .reserved::before {
         content: '🔒';
         margin-right: 0.25rem;
     }
     .info {
-        margin-left: 1rem;
-        opacity: 0.8;
-        display: inline-block;
+        margin-left: 0.5rem;
+        font-size: 0.8rem;
+        font-weight: 600;
     }
 
     .textbook {
@@ -119,7 +131,7 @@
         height: 50%;
     }
     .textbook.reserved::after {
-        background-color: var(--reserved-color);
+        background-color: var(--warning-color);
     }
     .textbook.sold::after {
         background-color: var(--font-light-opaque);
@@ -132,7 +144,7 @@
         background-color: white;
     }
     .textbook.reserved::before {
-        background-color: var(--reserved-color);
+        background-color: var(--warning-color);
     }
     .textbook.sold::before {
         background-color: var(--font-light-opaque);
@@ -141,7 +153,7 @@
     .price {
         background-color: var(--price-color);
         font-weight: 800;
-        border-radius: 4px;
+        border-radius: 0.25rem;
         padding: 0 0.3rem;
         margin-left: 0.5rem;
     }

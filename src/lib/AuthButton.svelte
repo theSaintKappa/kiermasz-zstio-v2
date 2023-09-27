@@ -1,4 +1,5 @@
 <script lang="ts">
+    import type { FirebaseError } from 'firebase/app';
     import { signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
     import Swal from 'sweetalert2';
     import { auth } from '../firebaseConfig';
@@ -8,7 +9,7 @@
     async function showLoginModal() {
         modal.fire({
             title: 'Zaloguj się',
-            html: `<input type="text" class="swal2-input" placeholder="Email" data-form-type="username"><input type="password" class="swal2-input" placeholder="Hasło" data-form-type="password">`,
+            html: `<form><input type="text" class="swal2-input" placeholder="Email" data-form-type="username"><input type="password" class="swal2-input" placeholder="Hasło" data-form-type="password"></form>`,
             confirmButtonText: 'Zaloguj się',
             showCancelButton: false,
             preConfirm: async () => {
@@ -21,7 +22,7 @@
     }
 
     async function login(auth: Auth, email: string, password: string) {
-        if (!login || !password) return Swal.showValidationMessage(`Wpisz email i hasło`);
+        if (!email || !password) return Swal.showValidationMessage(`Wpisz email i hasło`);
 
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -29,16 +30,14 @@
 
             if (userCredential.user.displayName !== null) return;
         } catch (err) {
-            if (err.code === 'auth/invalid-email' || err.code === 'auth/wrong-password') return Swal.showValidationMessage(`Nieprawidłowy email lub hasło`);
-            Swal.showValidationMessage(`Wystąpił błąd podczas logowania`);
+            if (['auth/invalid-email', 'auth/wrong-password', 'auth/user-not-found'].includes(err.code)) return Swal.showValidationMessage(`Nieprawidłowy email lub hasło`);
+            return Swal.showValidationMessage(`Wystąpił błąd podczas logowania`);
         }
 
         const result = await modal.fire({
             title: 'Cześć 👋',
             html: `<p>Ustaw swoją nazwę użytkownika aby kontynuować.</p><input class="swal2-input" data-form-type="other">`,
             showCancelButton: false,
-            // backdrop: '#100f15',
-            didOpen: () => (<HTMLInputElement>Swal.getPopup().querySelector('input')).focus(),
             preConfirm: () => {
                 const username = (<HTMLInputElement>Swal.getPopup().querySelector('input')).value;
                 if (username.length < 3) return Swal.showValidationMessage(`Nazwa użytkownika musi mieć co najmniej 3 znaki`);
