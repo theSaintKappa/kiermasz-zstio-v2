@@ -2,9 +2,7 @@ import './app.css';
 import App from './App.svelte';
 import('@sweetalert2/theme-dark/dark.min.css');
 
-const app = new App({
-    target: document.body,
-});
+const app = new App({ target: document.body });
 
 console.log(
     `%c                   .:-=+*##%@@@@%##*+=-:.                   
@@ -46,10 +44,6 @@ console.log(
                        :+@@*:                           
 `,
     'color:#DB0008'
-);
-console.log(
-    '%cJeśli nazywasz się Artur R. i to czytasz to dodaj mnie proszę do organizacji na mechanika na githubie, dzięki <3 https://github.com/theSaintKappa',
-    'font-weight: bold; font-size: 24px; color: yellowgreen;'
 );
 
 export default app;
