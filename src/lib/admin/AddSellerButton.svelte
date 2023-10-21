@@ -31,6 +31,7 @@
             lastName,
             classSymbol,
             email,
+            hasCashedOut: false,
             creator: { uid: $user.uid, email: $user.email },
             createdAt: serverTimestamp(),
         };

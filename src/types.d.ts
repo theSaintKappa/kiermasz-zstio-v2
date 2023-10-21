@@ -19,6 +19,7 @@ interface SellerDataForm {
 
 interface SellerDocument extends SellerDataForm, Creator {
     createdAt: FieldValue;
+    hasCashedOut: boolean;
 }
 
 interface SellerDocumentFull extends SellerDocument {

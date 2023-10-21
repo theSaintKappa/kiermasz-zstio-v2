@@ -22,7 +22,7 @@
         };
 
         try {
-            addDoc(collection(db, 'backups'), backupDoc);
+            await addDoc(collection(db, 'backups'), backupDoc);
 
             toast.fire({ title: 'Zaplanowano kopię zapasową', icon: 'success', timer: 2000 });
         } catch (err) {

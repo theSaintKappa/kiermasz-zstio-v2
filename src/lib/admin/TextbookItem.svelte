@@ -11,7 +11,11 @@
     let expiryLocaleDateString: string | null = null;
     $: expiryLocaleDateString = textbook.reservation.expiry?.toDate().toLocaleDateString('pl', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) ?? null;
 
+    let soldButton: HTMLButtonElement = null;
+
     async function updateStatus() {
+        if (soldButton.disabled) return;
+
         if (textbook.reservation.status) {
             const result = await modal.fire({
                 icon: 'warning',
@@ -79,7 +83,7 @@
     <div class="price">{textbook.price}zł</div>
     {#if !textbook.sold}
         <div class="buttons">
-            <button on:dblclick={updateStatus} disabled={$writingDisabled || null} aria-label="Oznacz jako sprzedany">Sprzedane</button>
+            <button on:dblclick={updateStatus} bind:this={soldButton} disabled={$writingDisabled || null} aria-label="Oznacz jako sprzedany">Sprzedane</button>
             {#if !textbook.reservation.status}
                 <button on:click={createReservation} disabled={$writingDisabled || null} aria-label="Dodaj rezerwację">Rezerwacja</button>
             {/if}

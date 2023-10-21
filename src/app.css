@@ -156,6 +156,32 @@ button[disabled] {
     background-color: var(--btn-hover);
 }
 
+.btn-inline {
+    font-weight: 600;
+    background-color: transparent;
+    border: none;
+    position: relative;
+    z-index: 0;
+}
+
+.btn-inline::before {
+    content: '';
+    position: absolute;
+    width: 90%;
+    height: 6px;
+    bottom: 1px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
+    background-color: var(--accent-primary);
+    transition: background-color 100ms, width 40ms;
+}
+
+.btn-inline:hover::before {
+    background-color: var(--accent-secondary);
+    width: 100%;
+}
+
 .toast-slidein {
     animation: toast-slidein 300ms ease forwards;
 }

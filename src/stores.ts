@@ -1,8 +1,8 @@
-import { writable } from 'svelte/store';
+import { writable } from "svelte/store";
 
 export const user = writable<User>(null);
 
-export const searchQuery = writable<string>('');
+export const searchQuery = writable<string>("");
 
 export const textbookTitles = writable<string[]>([]);
 

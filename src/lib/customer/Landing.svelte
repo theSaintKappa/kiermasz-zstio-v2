@@ -1,14 +1,20 @@
 <script lang="ts">
-    import BackToTopButton from './BackToTopButton.svelte';
-    import SearchBar from './SearchBar.svelte';
-    import TextbookGrid from './TextbookGrid.svelte';
+    import { writingDisabled } from "../../stores";
+    import BackToTopButton from "./BackToTopButton.svelte";
+    import EOL from "./EOL.svelte";
+    import SearchBar from "./SearchBar.svelte";
+    import TextbookGrid from "./TextbookGrid.svelte";
 </script>
 
 <svelte:head><title>Kiermasz ZSTiO</title></svelte:head>
-<div>
-    <SearchBar />
-    <TextbookGrid />
-</div>
+{#if !$writingDisabled}
+    <div>
+        <SearchBar />
+        <TextbookGrid />
+    </div>
+{:else}
+    <EOL />
+{/if}
 <BackToTopButton />
 
 <style>
@@ -23,5 +29,13 @@
         gap: var(--panel-margin);
         width: calc(100% - (2 * var(--panel-margin)));
         margin: var(--panel-margin) 0 calc(var(--panel-margin) * 6);
+    }
+
+    div {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin: 1.5rem 0 5rem;
+        gap: var(--panel-margin);
     }
 </style>
