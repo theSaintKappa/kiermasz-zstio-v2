@@ -4,11 +4,11 @@
 
 1. Celem kiermaszu jest umożliwienie **sprzedaży** oraz **kupna** używanych podręczników do przedmiotów, zgodnie z [zatwierdzonym wykazem](https://mechaniktg.pl/informacje/podreczniki) obowiązującym na dany rok szkolny.
 
-1. Sprzedaż podręczników będzie odbywała się od **13.09.2023** i potrwa do **27.09 do godziny 12:00**.
+1. Sprzedaż podręczników będzie odbywała się od **13.09.2024** i potrwa do **27.09 do godziny 12:00**.
 
 1. Lista dostępnych do kupna podręczników znajduje się pod adresem https://kiermasz.mechaniktg.pl.
 
-1. Podręczniki przeznaczone do sprzedaży wyceniają uczniowie (przy wycenie należy wziąć pod uwagę stan podręcznika) i dostarczają do biblioteki szkolnej od **04.09.2023** do **08.09.2023**.
+1. Podręczniki przeznaczone do sprzedaży wyceniają uczniowie (przy wycenie należy wziąć pod uwagę stan podręcznika) i dostarczają do biblioteki szkolnej od **03.09.2024** do **08.09.2024**.
 
 1. **Każdy** podręcznik obowiązkowo powinien być opisany na wewnętrznej stronie okładki następującymi danymi (najlepiej ołówkiem, **DRUKOWANYMI** literami - nie licząc adresu e-mail):
 
@@ -17,7 +17,7 @@
 -   **cena** `patrz punkt 4`,
 -   kontaktowy **adres e-mail** służący do otrzymania zautomatyzowanych wiadomości, za każdym razem gdy jeden z podręczników zostanie sprzedany.
 
-1. Odbiór pieniędzy i podręczników, które nie zostały sprzedane odbędzie się od **02.10.2023** do **06.10.2023**.
+1. Odbiór pieniędzy i podręczników, które nie zostały sprzedane odbędzie się od **02.10.2024** do **06.10.2024**.
 
 1. Uczeń otrzymuje całą kwotę za sprzedane podręczniki.
 
