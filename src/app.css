@@ -1,81 +1,82 @@
-/* inter-100 - latin */
+/* geist-100 - latin */
 @font-face {
     font-display: swap;
-    font-family: 'Inter';
+    font-family: 'Geist';
     font-style: normal;
     font-weight: 100;
-    src: url('/fonts/Inter-Thin.woff2') format('woff2'), url('/fonts/Inter-Thin.woff') format('woff');
+    src: url('/fonts/Geist-Thin.woff2') format('woff2'), url('/fonts/Geist-Thin.woff') format('woff');
 }
-/* inter-200 - latin */
+/* geist-200 - latin */
 @font-face {
     font-display: swap;
-    font-family: 'Inter';
+    font-family: 'Geist';
     font-style: normal;
     font-weight: 200;
-    src: url('/fonts/Inter-ExtraLight.woff2') format('woff2'), url('/fonts/Inter-ExtraLight.woff') format('woff');
+    src: url('/fonts/Geist-UltraLight.woff2') format('woff2'), url('/fonts/Geist-UltraLight.woff') format('woff');
 }
-/* inter-300 - latin */
+/* geist-300 - latin */
 @font-face {
     font-display: swap;
-    font-family: 'Inter';
+    font-family: 'Geist';
     font-style: normal;
     font-weight: 300;
-    src: url('/fonts/Inter-Light.woff2') format('woff2'), url('/fonts/Inter-Light.woff') format('woff');
+    src: url('/fonts/Geist-Light.woff2') format('woff2'), url('/fonts/Geist-Light.woff') format('woff');
 }
 
-/* inter-regular - latin */
+/* geist-400 - latin */
 @font-face {
     font-display: swap;
-    font-family: 'Inter';
+    font-family: 'Geist';
     font-style: normal;
     font-weight: 400;
-    src: url('/fonts/Inter-Regular.woff2') format('woff2'), url('/fonts/Inter-Regular.woff') format('woff');
+    src: url('/fonts/Geist-Regular.woff2') format('woff2'), url('/fonts/Geist-Regular.woff') format('woff');
 }
-/*500 - latin */
+/* geist-500 - latin */
 @font-face {
     font-display: swap;
-    font-family: 'Inter';
+    font-family: 'Geist';
     font-style: normal;
     font-weight: 500;
-    src: url('/fonts/Inter-Medium.woff2') format('woff2'), url('/fonts/Inter-Medium.woff') format('woff');
+    src: url('/fonts/Geist-Medium.woff2') format('woff2'), url('/fonts/Geist-Medium.woff') format('woff');
 }
 
-/* inter-600 - latin */
+/* geist-600 - latin */
 @font-face {
     font-display: swap;
-    font-family: 'Inter';
+    font-family: 'Geist';
     font-style: normal;
     font-weight: 600;
-    src: url('/fonts/Inter-SemiBold.woff2') format('woff2'), url('/fonts/Inter-SemiBold.woff') format('woff');
+    src: url('/fonts/Geist-SemiBold.woff2') format('woff2'), url('/fonts/Geist-SemiBold.woff') format('woff');
 }
-/* inter-700 - latin */
+/* geist-700 - latin */
 @font-face {
     font-display: swap;
-    font-family: 'Inter';
+    font-family: 'Geist';
     font-style: normal;
     font-weight: 700;
-    src: url('/fonts/Inter-Bold.woff2') format('woff2'), url('/fonts/Inter-Bold.woff') format('woff');
+    src: url('/fonts/Geist-Bold.woff2') format('woff2'), url('/fonts/Geist-Bold.woff') format('woff');
 }
 
-/* inter-800 - latin */
+/* geist-800 - latin */
 @font-face {
     font-display: swap;
-    font-family: 'Inter';
+    font-family: 'Geist';
     font-style: normal;
     font-weight: 800;
-    src: url('/fonts/Inter-ExtraBold.woff2') format('woff2'), url('/fonts/Inter-ExtraBold.woff') format('woff');
+    src: url('/fonts/Geist-Black.woff2') format('woff2'), url('/fonts/Geist-Black.woff') format('woff');
 }
-/* inter-900 - latin */
+/* geist-900 - latin */
 @font-face {
     font-display: swap;
-    font-family: 'Inter';
+    font-family: 'Geist';
     font-style: normal;
     font-weight: 900;
-    src: url('/fonts/Inter-Black.woff2') format('woff2'), url('/fonts/Inter-Black.woff') format('woff');
+    src: url('/fonts/Geist-UltraBlack.woff2') format('woff2'), url('/fonts/Geist-UltraBlack.woff') format('woff');
 }
 
+
 :root {
-    font-family: Inter, sans-serif;
+    font-family: Geist, sans-serif;
     line-height: 1.5;
     color: var(--font-light);
     color-scheme: dark light;

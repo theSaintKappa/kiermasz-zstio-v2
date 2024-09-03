@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { user } from '../../stores';
-    import SellerPanel from './SellerPanel.svelte';
-    import TextbookPanel from './TextbookPanel.svelte';
+import { user } from "../../stores";
+import SellerPanel from "./SellerPanel.svelte";
+import TextbookPanel from "./TextbookPanel.svelte";
 </script>
 
 <svelte:head><title>Kiermasz ZSTiO - 👤{$user?.displayName}</title></svelte:head>

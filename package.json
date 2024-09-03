@@ -1,7 +1,7 @@
 {
     "name": "kiermasz-zstio",
     "private": true,
-    "version": "1.0.4",
+    "version": "1.0.5",
     "type": "module",
     "description": "Web app made to organize my high school's annual used book fair. Built with Svelte & Firebase.",
     "author": "SaintKappa",
@@ -24,6 +24,7 @@
         "vite": "^4.3.2"
     },
     "dependencies": {
+        "@biomejs/biome": "^1.8.3",
         "@sweetalert2/theme-dark": "^5.0.15",
         "firebase": "^9.22.0",
         "firebase-admin": "^11.9.0",

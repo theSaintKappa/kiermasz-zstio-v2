@@ -1,18 +1,19 @@
 <script lang="ts">
-    import { blur } from 'svelte/transition';
-    import Footer from './lib/Footer.svelte';
-    import Header from './lib/Header.svelte';
-    import DasboardPanels from './lib/admin/DasboardPanels.svelte';
-    import Landing from './lib/customer/Landing.svelte';
-    import { user, writingDisabled } from './stores';
+import { blur } from "svelte/transition";
+import Footer from "./lib/Footer.svelte";
+import Header from "./lib/Header.svelte";
+import DashboardPanels from "./lib/admin/DashboardPanels.svelte";
+import Landing from "./lib/customer/Landing.svelte";
+import { user, writingDisabled } from "./stores";
 </script>
 
 <Header />
 <main>
     {#if $user}
-        <DasboardPanels />
+        <DashboardPanels />
     {:else}
-        <Landing />
+        <span>Lista dostępnych podręczników pojawi się w środę 13.09</span>
+        <!-- <Landing /> -->
     {/if}
 </main>
 <Footer />
@@ -26,7 +27,7 @@
         display: flex;
         justify-content: center;
     }
-
+    
     div {
         position: fixed;
         bottom: 0.5rem;
