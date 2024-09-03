@@ -4,7 +4,7 @@
 
 1. Celem kiermaszu jest umożliwienie **sprzedaży** oraz **kupna** używanych podręczników do przedmiotów, zgodnie z [zatwierdzonym wykazem](https://mechaniktg.pl/informacje/podreczniki) obowiązującym na dany rok szkolny.
 
-1. Sprzedaż podręczników będzie odbywała się od **13.09.2024** i potrwa do **27.09 do godziny 12:00**.
+1. Sprzedaż podręczników będzie odbywała się od **16.09.2024** i potrwa do **20.09 do godziny 12:00**.
 
 1. Lista dostępnych do kupna podręczników znajduje się pod adresem https://kiermasz.mechaniktg.pl.
 
