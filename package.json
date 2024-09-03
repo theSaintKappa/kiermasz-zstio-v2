@@ -1,33 +1,41 @@
 {
-    "name": "kiermasz-zstio",
+    "name": "kiermasz-zstio-v2",
     "private": true,
-    "version": "1.0.5",
+    "version": "2.0.0",
     "type": "module",
-    "description": "Web app made to organize my high school's annual used book fair. Built with Svelte & Firebase.",
-    "author": "SaintKappa",
+    "description": "Web app built to organize my high school's annual used textbook fair. Built with Svelte & Firebase.",
     "license": "MIT",
+    "author": {
+        "name": "Wojtek Zrałek",
+        "url": "https://saintkappa.dev"
+    },
+    "contributors": [
+        {
+            "name": "Dawid Gul",
+            "url": "https://jgrtowy.me"
+        }
+    ],
     "scripts": {
         "dev": "vite",
         "build": "vite build",
         "preview": "vite preview",
-        "check": "svelte-check --tsconfig ./tsconfig.json",
+        "check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json",
         "deploy": "npm run build && firebase deploy && rm -r ./dist",
         "deploy-hosting": "npm run build && firebase deploy --only hosting && rm -r ./dist"
     },
     "devDependencies": {
-        "@sveltejs/vite-plugin-svelte": "^2.0.3",
-        "@tsconfig/svelte": "^4.0.1",
-        "svelte": "^3.57.0",
-        "svelte-check": "^2.10.3",
-        "tslib": "^2.5.0",
-        "typescript": "^5.0.2",
-        "vite": "^4.3.2"
+        "@biomejs/biome": "1.8.3",
+        "@sveltejs/vite-plugin-svelte": "^3.1.1",
+        "@tsconfig/svelte": "^5.0.4",
+        "svelte": "^4.2.18",
+        "svelte-check": "^3.8.5",
+        "tslib": "^2.6.3",
+        "typescript": "^5.5.3",
+        "vite": "^5.4.1"
     },
     "dependencies": {
-        "@biomejs/biome": "^1.8.3",
-        "@sweetalert2/theme-dark": "^5.0.15",
-        "firebase": "^9.22.0",
-        "firebase-admin": "^11.9.0",
-        "sweetalert2": "^11.7.27"
+        "@sweetalert2/theme-dark": "^5.0.18",
+        "firebase": "^10.13.1",
+        "sweetalert2": "^11.13.1"
     }
 }

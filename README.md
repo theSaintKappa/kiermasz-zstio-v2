@@ -1,5 +1,5 @@
 # Kiermasz ZSTiO 📚
-Web app made to organize my high school's annual used book fair. Built with Svelte & Firebase.<br>
+Web app built to organize my high school's annual used textbook fair. Built with Svelte & Firebase.<br>
 Check it out at https://kiermasz.mechaniktg.pl
 <br><br>
 ### Features ✨

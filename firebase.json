@@ -7,7 +7,7 @@
         {
             "source": "functions",
             "codebase": "default",
-            "ignore": ["node_modules", ".git", "firebase-debug.log", "firebase-debug.*.log"],
+            "ignore": ["node_modules", ".git", "firebase-debug.log", "firebase-debug.*.log", "*.local"],
             "predeploy": ["npm --prefix \"$RESOURCE_DIR\" run build"]
         }
     ],
@@ -18,7 +18,12 @@
             {
                 "source": "/regulamin",
                 "destination": "https://github.com/theSaintKappa/kiermasz-zstio/blob/master/regulamin.md/",
-                "type": 301
+                "type": 303
+            },
+            {
+                "source": "/info",
+                "destination": "https://github.com/theSaintKappa/kiermasz-zstio/blob/master/regulamin.md/",
+                "type": 303
             }
         ],
         "rewrites": [

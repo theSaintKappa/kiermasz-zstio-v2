@@ -1,6 +1,6 @@
 <footer>
     <p>
-        <a href="https://github.com/theSaintKappa" target="_blank">Stworzone z 💖 przez <span class="bold">Wojtka Zrałek</span></a>
+        <span>Stworzone z 💖 przez <a class="bold" href="https://github.com/theSaintKappa" target="_blank">Wojtka Zrałka</a> i <a class="bold" href="https://github.com/jgrtowy" target="_blank">Dawida Gul</a></span>
         <a href="https://github.com/theSaintKappa/kiermasz-zstio" target="_blank">
             <svg xmlns="http://www.w3.org/2000/svg" height="1.4em" viewBox="0 0 496 512">
                 <path
