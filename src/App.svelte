@@ -12,7 +12,10 @@
     {#if $user}
         <DashboardPanels />
     {:else}
-        <span>Lista sprzedawanych podręczników pojawi się tutaj w środę 13.09</span>
+        <span
+            >Lista sprzedawanych podręczników pojawi się tutaj w środę 16.09 📚</span
+        >
+
         <!-- <Landing /> -->
     {/if}
 </main>

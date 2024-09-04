@@ -17,12 +17,12 @@
         "redirects": [
             {
                 "source": "/regulamin",
-                "destination": "https://github.com/theSaintKappa/kiermasz-zstio/blob/master/regulamin.md/",
+                "destination": "https://github.com/theSaintKappa/kiermasz-zstio-v2/blob/main/regulamin.md/",
                 "type": 303
             },
             {
                 "source": "/info",
-                "destination": "https://github.com/theSaintKappa/kiermasz-zstio/blob/master/regulamin.md/",
+                "destination": "https://github.com/theSaintKappa/kiermasz-zstio-v2/blob/main/regulamin.md/",
                 "type": 303
             }
         ],

@@ -1,17 +1,17 @@
 <script lang="ts">
-    import { searchQuery } from '../../stores';
+import { searchQuery } from "../../stores";
 
-    let inputField: HTMLInputElement;
+let inputField: HTMLInputElement;
 
-    function clearInput() {
-        $searchQuery = '';
-        inputField.focus();
-    }
+function clearInput() {
+    $searchQuery = "";
+    inputField.focus();
+}
 </script>
 
 <section>
     <div>
-        <input type="text" bind:value={$searchQuery} bind:this={inputField} aria-label="wyszukaj tytułów" placeholder="🔍 Wyszukaj tytułów..." />
+        <input type="text" bind:value={$searchQuery} bind:this={inputField} aria-label="Wyszukaj tytuł" placeholder="🔍 Wyszukaj tytuł..." />
         <button on:click={clearInput} aria-label="Wyczyść pole wyszukiwania">❌</button>
     </div>
 </section>
