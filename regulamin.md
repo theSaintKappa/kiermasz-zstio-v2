@@ -8,7 +8,7 @@
 
 3. Lista dostępnych do kupna podręczników znajduje się pod adresem https://kiermasz.mechaniktg.pl.
 
-4. Podręczniki przeznaczone do sprzedaży wyceniają uczniowie (przy wycenie należy wziąć pod uwagę stan podręcznika) i dostarczają do biblioteki szkolnej od **03.09.2024** do **08.09.2024**.
+4. Podręczniki przeznaczone do sprzedaży wyceniają uczniowie (przy wycenie należy wziąć pod uwagę stan podręcznika) i dostarczają do biblioteki szkolnej od **03.09.2024** do **09.09.2024**.
 
 5. **Każdy** podręcznik obowiązkowo powinien być opisany na wewnętrznej stronie okładki następującymi danymi (najlepiej ołówkiem, **DRUKOWANYMI** literami - nie licząc adresu e-mail):
 
