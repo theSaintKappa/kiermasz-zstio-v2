@@ -1,17 +1,17 @@
 <script lang="ts">
-    import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
-    import Swal from 'sweetalert2';
-    import { db, sendEmail } from '../../firebaseConfig';
-    import { user, writingDisabled } from '../../stores';
-    import { fireErrorModal, modal, toast } from '../../utils/swal';
+    import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+    import Swal from "sweetalert2";
+    import { db, sendEmail } from "../../firebaseConfig";
+    import { user, writingDisabled } from "../../stores";
+    import { fireErrorModal, modal, toast } from "../../utils/swal";
 
     async function addSeller() {
         const form = await modal.fire({
             title: `Dodaj nowego sprzedawcę`,
             html: `<form><input class="swal2-input" placeholder="Imię" name="firstName" data-form-type="other"><input class="swal2-input" placeholder="Nazwisko" name="lastName" data-form-type="other"><input class="swal2-input" placeholder="Klasa" name="classSymbol" data-form-type="other"><input class="swal2-input" placeholder="Email" name="email" data-form-type="other"></form>`,
-            confirmButtonText: 'Dodaj',
+            confirmButtonText: "Dodaj",
             preConfirm: async () => {
-                const form = Swal.getPopup().querySelector('form');
+                const form = Swal.getPopup().querySelector("form");
                 const firstName = (<HTMLInputElement>form.firstName).value;
                 const lastName = (<HTMLInputElement>form.lastName).value;
                 const classSymbol = (<HTMLInputElement>form.classSymbol).value;
@@ -36,27 +36,29 @@
             createdAt: serverTimestamp(),
         };
         try {
-            await addDoc(collection(db, 'sellers'), sellerDoc);
+            await addDoc(collection(db, "sellers"), sellerDoc);
 
             toast.fire({
-                icon: 'success',
+                icon: "success",
                 title: `Dodabno sprzedawcę`,
                 text: `${firstName} ${lastName} ${classSymbol}`,
             });
+
+            new Audio("/metal-pipe.mp3").play();
         } catch (err) {
-            return fireErrorModal(err, 'Wystąpił błąd podczas dodawania sprzedawcy.');
+            return fireErrorModal(err, "Wystąpił błąd podczas dodawania sprzedawcy.");
         }
 
         if (email)
             sendEmail({
                 to: email,
-                subject: 'Witaj na kiermaszu!',
+                subject: "Witaj na kiermaszu!",
                 html: `Cześć ${firstName},<br><br>Witamy na kiermaszu podręczników używanych w mechaniku!<br>Będziesz otrzymywać zautomatyzowane wiadomości za każdym razem gdy któryś z twoich podręczników zostanie sprzedany.<br>Wszelkie pytania kierować możesz na adres email kiermasz@mechaniktg.pl lub osobiście w bibliotece.<br><br>Pozdrawiamy,<br>Biblioteka ZSTiO`,
             });
     }
 
     document.onkeyup = (e) => {
-        if (e.key === 'Enter' && e.ctrlKey && !Swal.getPopup()) addSeller();
+        if (e.key === "Enter" && e.ctrlKey && !Swal.getPopup()) addSeller();
     };
 </script>
 
