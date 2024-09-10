@@ -1,12 +1,12 @@
-type FieldValue = import('firebase/firestore').FieldValue;
-type Timestamp = import('firebase/firestore').Timestamp;
-type User = import('firebase/auth').User;
-type Auth = import('firebase/auth').Auth;
+type FieldValue = import("firebase/firestore").FieldValue;
+type Timestamp = import("firebase/firestore").Timestamp;
+type User = import("firebase/auth").User;
+type Auth = import("firebase/auth").Auth;
 
 interface Creator {
     creator: {
         uid: string;
-        email: string;
+        email: string | null;
     };
 }
 
@@ -20,6 +20,7 @@ interface SellerDataForm {
 interface SellerDocument extends SellerDataForm, Creator {
     createdAt: FieldValue;
     hasCashedOut: boolean;
+    notes: string | null;
 }
 
 interface SellerDocumentFull extends SellerDocument {
@@ -35,13 +36,13 @@ interface TextbookDataForm {
 interface TextbookDocument extends TextbookDataForm, Creator {
     createdAt: FieldValue;
     sold: boolean;
-    soldAt: Timestamp;
+    soldAt: Timestamp | null;
     sellerEmailName: string;
     email: string;
     reservation: {
         status: boolean;
-        holder: string;
-        expiry: Timestamp;
+        holder: string | null;
+        expiry: Timestamp | null;
     };
     parentId: string;
 }
@@ -54,8 +55,8 @@ type TextbookCondition = 1 | 2 | 3 | 4;
 
 interface BackupDocument {
     createdAt: Timestamp;
-    status: 'pending' | 'complete' | 'failed';
-    type: 'scheduled' | 'manual';
+    status: "pending" | "complete" | "failed";
+    type: "scheduled" | "manual";
 }
 
 interface TitleDocument extends Creator {

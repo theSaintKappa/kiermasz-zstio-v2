@@ -2,25 +2,28 @@
     import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp } from "firebase/firestore";
     import { onMount } from "svelte";
     import Swal from "sweetalert2";
-    import { db } from "../../firebaseConfig";
-    import { textbookTitles, user, writingDisabled } from "../../stores";
-    import { converter } from "../../utils/converter";
-    import { fireErrorModal, modal, toast } from "../../utils/swal";
-    import SellerCashOutButton from "./SellerCashOutButton.svelte";
-    import TextbookItem from "./TextbookItem.svelte";
     import face1 from "/condition1.svg";
     import face2 from "/condition2.svg";
     import face3 from "/condition3.svg";
     import face4 from "/condition4.svg";
+    import { db } from "../../firebaseConfig";
+    import { textbookTitles, user, writingDisabled } from "../../stores";
+    import { converter } from "../../utils/converter";
+    import { fireErrorModal, modal, toast } from "../../utils/swal";
+    import AddNoteButton from "./AddNotesButton.svelte";
+    import SellerCashOutButton from "./SellerCashOutButton.svelte";
+    import TextbookItem from "./TextbookItem.svelte";
 
     export let seller: SellerDocumentFull;
 
     let textbooks: TextbookDocumentFull[] = [];
     let soldTextbooks: TextbookDocumentFull[] = [];
-    let soldTextbooksSum: number = 0;
+    let soldTextbooksSum = 0;
+    let notes: SellerDocumentFull["notes"] = null;
 
-    $: textbooks && (soldTextbooks = textbooks.filter((textbook) => textbook.sold));
-    $: soldTextbooks && (soldTextbooksSum = soldTextbooks.reduce((acc, curr) => acc + curr.price, 0));
+    $: if (textbooks) soldTextbooks = textbooks.filter((textbook) => textbook.sold);
+    $: if (soldTextbooks) soldTextbooksSum = soldTextbooks.reduce((acc, curr) => acc + curr.price, 0);
+    $: notes = seller.notes;
 
     onMount(() => {
         const q = query(collection(db, "sellers", seller.id, "textbooks"), orderBy("sold"), orderBy("createdAt", "desc"));
@@ -51,12 +54,12 @@
     }
 
     async function preConfirm() {
-        const form = Swal.getPopup().querySelector("form");
-        const title = (<HTMLInputElement>form.textbookTitle).value;
-        const price = parseFloat((<HTMLInputElement>form.price).value);
-        const condition = <TextbookCondition>parseInt((<HTMLInputElement>form.condition).value);
+        const form = Swal.getPopup()?.querySelector("form");
+        const title = (<HTMLInputElement>form?.textbookTitle).value;
+        const price = Number.parseFloat((<HTMLInputElement>form?.price).value);
+        const condition = <TextbookCondition>Number.parseInt((<HTMLInputElement>form?.condition).value);
 
-        if (!title || !price || !condition) return Swal.showValidationMessage(`Wypełnij wszystkie pola`);
+        if (!title || !price || !condition) return Swal.showValidationMessage("Wypełnij wszystkie pola");
 
         const textbookDocument: TextbookDocument = {
             title,
@@ -77,7 +80,7 @@
 
             toast.fire({
                 icon: "success",
-                title: `Dodabno podręcznik`,
+                title: "Dodabno podręcznik",
                 text: `${title} - ${price}zł`,
             });
         } catch (err) {
@@ -88,11 +91,14 @@
     }
 
     function didRender() {
-        const radios = Swal.getPopup().querySelectorAll('input[type="radio"]');
-        const fieldset = Swal.getPopup().querySelector("fieldset");
+        const radios = Swal.getPopup()?.querySelectorAll('input[type="radio"]');
+        const fieldset = Swal.getPopup()?.querySelector("fieldset");
         const colors = ["#ff3313", "#ffcd19", "#82ff28", "#ac00b8"];
-        fieldset.style.borderColor = colors[parseInt((<HTMLInputElement>Swal.getPopup().querySelector('input[type="radio"]:checked')).value) - 1];
-        radios.forEach((radio: HTMLInputElement) => (radio.onchange = (e) => (fieldset.style.borderColor = colors[parseInt((<HTMLInputElement>e.target).value) - 1])));
+        if (fieldset) fieldset.style.borderColor = colors[Number.parseInt((<HTMLInputElement>Swal.getPopup()?.querySelector('input[type="radio"]:checked')).value) - 1];
+        for (const radio of radios as NodeListOf<HTMLInputElement>)
+            radio.onchange = (e) => {
+                if (fieldset) fieldset.style.borderColor = colors[Number.parseInt((<HTMLInputElement>e.target).value) - 1];
+            };
     }
 </script>
 
@@ -102,7 +108,8 @@
             <span>
                 {seller.firstName}
                 {seller.lastName}
-                {seller.classSymbol ? ` | ${seller.classSymbol}` : ""}
+                {seller.classSymbol ? `| ${seller.classSymbol}` : ""}
+                <span class="notes" title={seller.notes}>{seller.notes ? (seller.notes.length > 64 ? `(${seller.notes.substring(0, 64)}...)` : `(${seller.notes})`) : ""}</span>
                 {#if seller.hasCashedOut}
                     <span title="Wypłacono {soldTextbooksSum}zł">💰</span>
                 {/if}
@@ -122,12 +129,16 @@
                 {#if !seller.hasCashedOut}
                     <span>Kwota do wypłaty: <strong>{soldTextbooksSum}</strong>zł</span>
                     <SellerCashOutButton {seller} {soldTextbooksSum} />
+                    <AddNoteButton {seller} {notes} />
                 {:else}
                     <span>Wypłacono: {soldTextbooksSum}zł</span>
                 {/if}
             </div>
         {:else}
-            <span>Brak podręczników</span>
+            <span class="textbook-list-empty">Brak podręczników</span>
+            <div class="list-summary">
+                <AddNoteButton {seller} {notes} />
+            </div>
         {/if}
     </div>
 </details>
@@ -154,10 +165,10 @@
         cursor: pointer;
     }
 
-    details[open] .summary > span {
+    /* details[open] .summary > span {
         font-weight: 900;
         letter-spacing: 1px;
-    }
+    } */
     details:not([open]) summary::marker {
         color: var(--font-light-opaque);
     }
@@ -180,5 +191,14 @@
         border-radius: 0.25rem;
         background-color: var(--accent-secondary);
         text-wrap: nowrap;
+    }
+
+    .textbook-list-empty {
+        font-style: italic;
+    }
+
+    .notes {
+        font-weight: 400;
+        color: var(--font-light-opaque);
     }
 </style>

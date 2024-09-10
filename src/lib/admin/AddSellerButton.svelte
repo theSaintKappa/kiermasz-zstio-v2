@@ -7,18 +7,18 @@
 
     async function addSeller() {
         const form = await modal.fire({
-            title: `Dodaj nowego sprzedawcę`,
+            title: "Dodaj nowego sprzedawcę",
             html: `<form><input class="swal2-input" placeholder="Imię" name="firstName" data-form-type="other"><input class="swal2-input" placeholder="Nazwisko" name="lastName" data-form-type="other"><input class="swal2-input" placeholder="Klasa" name="classSymbol" data-form-type="other"><input class="swal2-input" placeholder="Email" name="email" data-form-type="other"></form>`,
             confirmButtonText: "Dodaj",
             preConfirm: async () => {
-                const form = Swal.getPopup().querySelector("form");
-                const firstName = (<HTMLInputElement>form.firstName).value;
-                const lastName = (<HTMLInputElement>form.lastName).value;
-                const classSymbol = (<HTMLInputElement>form.classSymbol).value;
-                const email = (<HTMLInputElement>form.email).value || null;
+                const form = Swal.getPopup()?.querySelector("form");
+                const firstName = (<HTMLInputElement>form?.firstName).value;
+                const lastName = (<HTMLInputElement>form?.lastName).value;
+                const classSymbol = (<HTMLInputElement>form?.classSymbol).value;
+                const email = (<HTMLInputElement>form?.email).value || null;
 
-                if (!firstName || !lastName || !classSymbol) return Swal.showValidationMessage(`Wypełnij wszystkie pola`);
-                if (email && !/[\w-\.]+@([\w-]+\.)+[\w-]{2,4}/.test(email)) return Swal.showValidationMessage(`Niepoprawny adres email`);
+                if (!firstName || !lastName || !classSymbol) return Swal.showValidationMessage("Wypełnij wszystkie pola");
+                if (email && !/[\w-\.]+@([\w-]+\.)+[\w-]{2,4}/.test(email)) return Swal.showValidationMessage("Niepoprawny adres email");
 
                 return { firstName, lastName, classSymbol, email };
             },
@@ -33,6 +33,7 @@
             email,
             hasCashedOut: false,
             creator: { uid: $user.uid, email: $user.email },
+            notes: null,
             createdAt: serverTimestamp(),
         };
         try {
@@ -40,7 +41,7 @@
 
             toast.fire({
                 icon: "success",
-                title: `Dodabno sprzedawcę`,
+                title: "Dodabno sprzedawcę",
                 text: `${firstName} ${lastName} ${classSymbol}`,
             });
 
