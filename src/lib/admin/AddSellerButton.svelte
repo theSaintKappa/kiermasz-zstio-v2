@@ -45,7 +45,7 @@
                 text: `${firstName} ${lastName} ${classSymbol}`,
             });
 
-            new Audio("/metal-pipe.mp3").play();
+            new Audio("/sounds/add-seller.mp3").play();
         } catch (err) {
             return fireErrorModal(err, "Wystąpił błąd podczas dodawania sprzedawcy.");
         }

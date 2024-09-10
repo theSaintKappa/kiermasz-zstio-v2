@@ -78,6 +78,8 @@
         try {
             await addDoc(collection(db, "sellers", seller.id, "textbooks"), textbookDocument);
 
+            new Audio("/sounds/add-textbook.mp3").play();
+
             toast.fire({
                 icon: "success",
                 title: "Dodabno podręcznik",
