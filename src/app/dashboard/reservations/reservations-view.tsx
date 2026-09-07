@@ -37,7 +37,7 @@ export function ReservationsView({ reservations }: ReservationsViewProps) {
         let debounceTimer: ReturnType<typeof setTimeout> | null = null;
         const channel = supabase
             .channel("reservations-realtime")
-            .on("postgres_changes", { event: "*", schema: "public", table: "textbook_items", filter: `event_id=eq.${selectedEventId}` }, () => {
+            .on("postgres_changes", { event: "*", schema: "public", table: "textbook_items" }, () => {
                 if (debounceTimer) clearTimeout(debounceTimer);
                 debounceTimer = setTimeout(() => router.refresh(), 500);
             })

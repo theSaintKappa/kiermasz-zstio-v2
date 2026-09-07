@@ -27,7 +27,7 @@ export function SellersView({ sellers, seller, items, eventId }: SellersViewProp
         const channel = supabase
             .channel("sellers-realtime")
             .on("postgres_changes", { event: "*", schema: "public", table: "sellers", filter: `event_id=eq.${eventId}` }, () => router.refresh())
-            .on("postgres_changes", { event: "*", schema: "public", table: "textbook_items", filter: `event_id=eq.${eventId}` }, () => router.refresh())
+            .on("postgres_changes", { event: "*", schema: "public", table: "textbook_items" }, () => router.refresh())
             .subscribe();
 
         return () => {

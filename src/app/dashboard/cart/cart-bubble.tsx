@@ -77,7 +77,7 @@ export function CartBubble() {
         let debounceTimer: ReturnType<typeof setTimeout> | null = null;
         const channel = supabase
             .channel("cart-realtime")
-            .on("postgres_changes", { event: "*", schema: "public", table: "textbook_items", filter: `event_id=eq.${selectedEventId}` }, () => {
+            .on("postgres_changes", { event: "*", schema: "public", table: "textbook_items" }, () => {
                 if (debounceTimer) clearTimeout(debounceTimer);
                 debounceTimer = setTimeout(() => {
                     if (items.length > 0) verifyCart();

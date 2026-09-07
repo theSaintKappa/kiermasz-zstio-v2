@@ -60,7 +60,7 @@ export function SalesView({ initialQuery }: SalesViewProps) {
         let debounceTimer: ReturnType<typeof setTimeout> | null = null;
         const channel = supabase
             .channel("sales-realtime")
-            .on("postgres_changes", { event: "*", schema: "public", table: "textbook_items", filter: `event_id=eq.${selectedEventId}` }, () => {
+            .on("postgres_changes", { event: "*", schema: "public", table: "textbook_items" }, () => {
                 if (debounceTimer) clearTimeout(debounceTimer);
                 debounceTimer = setTimeout(() => refresh(), 500);
             })
