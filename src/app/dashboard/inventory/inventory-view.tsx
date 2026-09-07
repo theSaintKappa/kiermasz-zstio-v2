@@ -46,7 +46,7 @@ export function SellersView({ sellers, seller, items, eventId }: SellersViewProp
         return (
             <div className="w-full min-w-0">
                 <SellersList sellers={sellers} onAddClick={() => setCreateOpen(true)} activeSellerId={null} />
-                <CreateSellerDialog open={createOpen} onOpenChange={setCreateOpen} />
+                <CreateSellerDialog open={createOpen} onOpenChange={setCreateOpen} onCreated={(id) => router.push(`/dashboard/inventory/${id}`)} />
             </div>
         );
     }
@@ -58,7 +58,7 @@ export function SellersView({ sellers, seller, items, eventId }: SellersViewProp
             </div>
             <Separator orientation="vertical" className="h-full" />
             <div className="min-w-0 flex-1">{seller ? <SellerProfile seller={seller} items={items} /> : <EmptyState />}</div>
-            <CreateSellerDialog open={createOpen} onOpenChange={setCreateOpen} />
+            <CreateSellerDialog open={createOpen} onOpenChange={setCreateOpen} onCreated={(id) => router.push(`/dashboard/inventory/${id}`)} />
         </div>
     );
 }
