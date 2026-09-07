@@ -125,7 +125,14 @@ export function SellerProfile({ seller, items, showBackButton }: SellerProfilePr
             {/* Add textbook */}
             <div>
                 <h3 className="mb-3 font-medium text-sm">Dodaj podręcznik</h3>
-                <AddTextbookItem sellerId={seller.id} onCreateTitle={(isbn) => { setInitialIsbn(isbn ?? null); setCreateTitleOpen(true); }} selectedTitleOption={selectedTitleOption} />
+                <AddTextbookItem
+                    sellerId={seller.id}
+                    onCreateTitle={(isbn) => {
+                        setInitialIsbn(isbn ?? null);
+                        setCreateTitleOpen(true);
+                    }}
+                    selectedTitleOption={selectedTitleOption}
+                />
             </div>
 
             {/* Textbook items list */}

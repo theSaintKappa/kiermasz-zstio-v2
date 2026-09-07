@@ -37,6 +37,7 @@ export function AddTextbookItem({ sellerId, onAdded, onCreateTitle, selectedTitl
     const [search, setSearch] = useState("");
     const [selectedTitle, setSelectedTitle] = useState<TextbookTitleOption | null>(null);
     const priceInputRef = useRef<HTMLInputElement>(null);
+    const searchInputRef = useRef<HTMLInputElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
 
     const { results, isLoading, clearCache } = useTextbookSearch(search);
@@ -93,7 +94,7 @@ export function AddTextbookItem({ sellerId, onAdded, onCreateTitle, selectedTitl
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <FieldGroup>
                 <div ref={containerRef} className="flex gap-2">
-                    <Field data-invalid={Boolean(errors.titleId)} className="flex-1">
+                    <Field data-invalid={Boolean(errors.titleId)} className="min-w-0 flex-1">
                         <Controller
                             name="titleId"
                             control={control}
@@ -114,13 +115,13 @@ export function AddTextbookItem({ sellerId, onAdded, onCreateTitle, selectedTitl
                                                 className="flex h-8 w-full min-w-0 items-center justify-between rounded-lg border border-input bg-transparent px-2.5 py-1 text-sm outline-none transition-colors focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 md:text-sm dark:bg-input/30 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 dark:disabled:bg-input/80"
                                             >
                                                 {selectedTitle ? <span className="truncate">{selectedTitle.title}</span> : <span className="text-muted-foreground text-xs sm:text-sm">Tytuł, przedmiot lub ISBN...</span>}
-                                                <HugeiconsIcon icon={UnfoldMoreIcon} strokeWidth={2} className="pointer-events-none size-4 text-muted-foreground" />
+                                                <HugeiconsIcon icon={UnfoldMoreIcon} strokeWidth={2} className="pointer-events-none size-4 shrink-0 text-muted-foreground" />
                                             </button>
                                         }
                                     />
-                                    <PopoverContent anchor={containerRef} className="w-(--anchor-width) p-0" align="start">
+                                    <PopoverContent anchor={containerRef} className="w-(--anchor-width) p-0" align="start" initialFocus={() => searchInputRef.current}>
                                         <Command filter={() => 1}>
-                                            <CommandInput placeholder="np. Sztuka wyrazu 2 cz. 1" value={search} onValueChange={setSearch} />
+                                            <CommandInput ref={searchInputRef} placeholder="np. Sztuka wyrazu 2 cz. 1" value={search} onValueChange={setSearch} />
                                             <CommandList className="max-h-96">
                                                 {isLoading && search ? (
                                                     <div className="flex items-center justify-center gap-2 py-4 text-muted-foreground text-sm">
@@ -160,6 +161,7 @@ export function AddTextbookItem({ sellerId, onAdded, onCreateTitle, selectedTitl
                                                                         setSelectedTitle(t.id === field.value ? null : t);
                                                                         setOpen(false);
                                                                         setSearch("");
+                                                                        setTimeout(() => priceInputRef.current?.focus(), 50);
                                                                     }}
                                                                     className="flex items-center gap-3"
                                                                 >
