@@ -1,6 +1,6 @@
 "use client";
 
-import { ModeToggle } from "@/components/theme-toggle";
+import { ModeToggle } from "@/components/mode-toggle";
 import { Badge } from "@/components/ui/badge";
 import { Breadcrumb } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
