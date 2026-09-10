@@ -31,6 +31,7 @@ export function LoginForm() {
     const defaultEmail = searchParams.get("email") || "";
     const supabase = createClient();
     const [authError, setAuthError] = useState<string | null>(null);
+    const [isRedirecting, setIsRedirecting] = useState(false);
     const {
         register,
         handleSubmit,
@@ -51,6 +52,7 @@ export function LoginForm() {
         }
 
         const target = nextPath?.startsWith("/") && !nextPath.startsWith("//") ? nextPath : "/dashboard";
+        setIsRedirecting(true);
         router.push(target);
         router.refresh();
     };
@@ -76,8 +78,8 @@ export function LoginForm() {
                 </Field>
                 <FieldError>{authError}</FieldError>
                 <Field>
-                    <Button size="lg" type="submit" disabled={isSubmitting}>
-                        {isSubmitting ? "Logowanie..." : "Zaloguj się"}
+                    <Button size="lg" type="submit" disabled={isSubmitting || isRedirecting}>
+                        {isSubmitting || isRedirecting ? "Logowanie..." : "Zaloguj się"}
                     </Button>
                 </Field>
             </FieldGroup>
