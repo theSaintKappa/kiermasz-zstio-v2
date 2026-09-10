@@ -10,7 +10,7 @@ import { formatDateTime } from "@/lib/format-utils";
 import { SITE_DESCRIPTION, SITE_NAME } from "@/lib/site-config";
 import { resolveCurrentTerms } from "@/lib/terms";
 
-export const revalidate = 300;
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
     title: "Regulamin",
