@@ -17,7 +17,7 @@ function Header() {
     return (
         <header className="border-b">
             <div className="mx-auto flex h-14 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-                <Image src="/logo.svg" alt="Logo" width={120} height={28} className="h-9 w-auto dark:invert" />
+                <Image src="/logo.svg" alt="Logo" width={169} height={36} className="h-9 w-auto dark:invert" />
                 <div className="flex items-center gap-2">
                     <ModeToggle />
                     <Button nativeButton={false} render={<Link href="/login" />}>

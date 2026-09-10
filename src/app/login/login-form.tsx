@@ -60,7 +60,7 @@ export function LoginForm() {
             <FieldGroup>
                 <div className="flex flex-col items-center gap-4 text-center">
                     <Link href="/">
-                        <Image src="/logo.svg" alt="Logo" width={100} height={100} className="h-24 w-auto sm:h-28 dark:invert" />
+                        <Image src="/logo.svg" alt="Logo" width={169} height={36} className="h-24 w-auto sm:h-28 dark:invert" />
                     </Link>
                     <h1 className="font-bold text-2xl sm:text-3xl">Panel Administracyjny</h1>
                 </div>
