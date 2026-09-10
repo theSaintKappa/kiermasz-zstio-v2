@@ -11,12 +11,12 @@ function cleanQuery(q: string): string {
     return q.replace(/[\s]+/g, " ").trim();
 }
 
-export function useCatalogSearch(query: string, initialRows: PublicCatalogRow[]) {
+export function useCatalogSearch(query: string, initialRows: PublicCatalogRow[], initialQuery = "") {
     const [rows, setRows] = useState<PublicCatalogRow[]>(initialRows);
     const [isLoading, setIsLoading] = useState(false);
     const abortRef = useRef<AbortController | null>(null);
     const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-    const lastQueryRef = useRef<string>("");
+    const lastQueryRef = useRef<string>(cleanQuery(initialQuery));
 
     const fetchResults = useCallback(async (q: string) => {
         abortRef.current?.abort();

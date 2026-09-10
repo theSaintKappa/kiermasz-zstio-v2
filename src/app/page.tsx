@@ -1,14 +1,12 @@
-import { Calendar02Icon } from "@hugeicons/core-free-icons";
-import { HugeiconsIcon } from "@hugeicons/react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
-import { createClient } from "@/lib/supabase/server";
-import { CatalogView } from "./catalog-view";
-import { resolveKiermaszState } from "./kiermasz-state";
-import type { PublicCatalogRow } from "./public-catalog-utils";
+import { Skeleton } from "@/components/ui/skeleton";
+import { CatalogSection } from "./catalog-section";
+import { CatalogShell } from "./catalog-shell";
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = { title: "Katalog | Kiermasz ZSP" };
@@ -44,41 +42,44 @@ export function Footer() {
     );
 }
 
+export function CatalogSkeleton() {
+    return (
+        <div className="flex w-full flex-col pt-4">
+            <div className="grid grid-cols-2 gap-3 p-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 2xl:grid-cols-6">
+                {Array.from({ length: 12 }, (_, i) => (
+                    // biome-ignore lint/suspicious/noArrayIndexKey: what else am I supposed to use
+                    <div key={`sk-${i}`}>
+                        <Skeleton className="aspect-210/297 w-full rounded-xl" />
+                        <div className="space-y-2 p-2">
+                            <Skeleton className="h-4.25 w-3/4" />
+                            <div className="space-y-1">
+                                <Skeleton className="h-[12.5px] w-full" />
+                                <Skeleton className="h-[12.5px] w-1/5" />
+                            </div>
+                            <Skeleton className="h-4.25 w-1/5 rounded-full" />
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
 export default async function HomePage({ searchParams }: { searchParams: Promise<{ q?: string }> }) {
     const { q } = await searchParams;
     const initialQuery = q?.trim() ?? "";
 
-    const state = await resolveKiermaszState();
-
-    if (state.kind === "selling") {
-        const supabase = await createClient();
-        const { data, error } = await supabase.rpc("search_public_catalog", { p_query: initialQuery });
-
-        if (error) console.error("Public catalog fetch error:", error.message);
-
-        const rows: PublicCatalogRow[] = (data as PublicCatalogRow[]) ?? [];
-
-        return (
-            <main className="flex min-h-svh w-full flex-col">
-                <Header />
-                <div className="mx-auto w-full max-w-7xl">
-                    <CatalogView initialRows={rows} initialQuery={initialQuery} />
-                </div>
-                <Footer />
-            </main>
-        );
-    }
-
-    // Message state (non-selling)
     return (
         <main className="flex min-h-svh w-full flex-col">
             <Header />
-            <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col items-center justify-center px-4 py-8 sm:px-6 lg:px-8">
-                <div className="flex max-w-md flex-col items-center gap-4 rounded-xl border bg-card p-8 text-center">
-                    <HugeiconsIcon icon={Calendar02Icon} className="size-10 text-muted-foreground" />
-                    <h1 className="font-bold font-heading text-2xl">{state.title}</h1>
-                    {state.body && <p className="text-muted-foreground">{state.body}</p>}
-                </div>
+            <div className="mx-auto w-full max-w-7xl">
+                <CatalogShell initialQuery={initialQuery}>
+                    <Suspense fallback={<CatalogSkeleton />}>
+                        <CatalogSection initialQuery={initialQuery} />
+                    </Suspense>
+                    {/* <CatalogSkeleton />
+                    <CatalogSection initialQuery={initialQuery} /> */}
+                </CatalogShell>
             </div>
             <Footer />
         </main>
