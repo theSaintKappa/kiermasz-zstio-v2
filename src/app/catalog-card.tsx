@@ -27,7 +27,7 @@ export function CatalogCard({ row, onSelect }: CatalogCardProps) {
                 {coverUrl ? (
                     <Image
                         src={coverUrl}
-                        alt=""
+                        alt={row.title}
                         fill
                         sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 17vw"
                         className={cn("object-cover brightness-50 sm:brightness-100 sm:transition-all sm:duration-300 sm:group-hover/card:scale-105 sm:group-hover/card:blur-[2px] sm:group-hover/card:brightness-50", row.availableCount === 0 && "grayscale")}

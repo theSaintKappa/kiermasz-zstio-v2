@@ -5,17 +5,38 @@ import { Suspense } from "react";
 import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site-config";
 import { CatalogSection } from "./catalog-section";
 import { CatalogShell } from "./catalog-shell";
 
 export const dynamic = "force-dynamic";
-export const metadata: Metadata = { title: "Katalog | Kiermasz ZSP" };
+
+export const metadata: Metadata = {
+    title: `Katalog | ${SITE_NAME}`,
+    description: SITE_DESCRIPTION,
+    alternates: {
+        canonical: "/",
+    },
+    openGraph: {
+        title: `Katalog | ${SITE_NAME}`,
+        description: SITE_DESCRIPTION,
+        url: "/",
+        siteName: SITE_NAME,
+        locale: "pl_PL",
+        type: "website",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: `Katalog | ${SITE_NAME}`,
+        description: SITE_DESCRIPTION,
+    },
+};
 
 function Header() {
     return (
         <header className="border-b">
             <div className="mx-auto flex h-14 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-                <Image src="/logo.svg" alt="Logo" width={169} height={36} className="h-9 w-auto dark:invert" />
+                <Image src="/logo.svg" alt={`${SITE_NAME} — logo`} width={169} height={36} className="h-9 w-auto dark:invert" />
                 <div className="flex items-center gap-2">
                     <ModeToggle />
                     <Button nativeButton={false} render={<Link href="/login" />}>
@@ -69,9 +90,25 @@ export default async function HomePage({ searchParams }: { searchParams: Promise
     const { q } = await searchParams;
     const initialQuery = q?.trim() ?? "";
 
+    const jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: SITE_NAME,
+        url: SITE_URL,
+        description: SITE_DESCRIPTION,
+        potentialAction: {
+            "@type": "SearchAction",
+            target: `${SITE_URL}/?q={search_term_string}`,
+            "query-input": "required name=search_term_string",
+        },
+    };
+
     return (
         <main className="flex min-h-svh w-full flex-col">
             <Header />
+            <h1 className="sr-only">Katalog podręczników — {SITE_NAME}</h1>
+            {/* biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data for SEO */}
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
             <div className="mx-auto w-full max-w-7xl">
                 <CatalogShell initialQuery={initialQuery}>
                     <Suspense fallback={<CatalogSkeleton />}>

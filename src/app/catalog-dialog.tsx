@@ -31,7 +31,7 @@ export function CatalogDialog({ row, open, onOpenChange }: CatalogDialogProps) {
                     {/* Cover */}
                     <div className="relative aspect-210/297 w-40 shrink-0 overflow-hidden rounded-lg bg-muted/50 sm:w-52">
                         {coverUrl ? (
-                            <Image src={coverUrl} alt="" fill sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 20vw, 16vw" className="object-cover" />
+                            <Image src={coverUrl} alt={row.title} fill sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 20vw, 16vw" className="object-cover" />
                         ) : (
                             <div className="flex size-full items-center justify-center">
                                 <HugeiconsIcon icon={BookImageIcon} className="size-10 text-muted-foreground/40" />

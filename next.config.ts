@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
             {
                 source: "/regulamin",
                 destination: "/terms",
-                permanent: false,
+                permanent: true,
             },
         ];
     },

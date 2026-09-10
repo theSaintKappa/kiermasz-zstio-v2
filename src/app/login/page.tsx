@@ -1,6 +1,27 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
+import { SITE_NAME } from "@/lib/site-config";
 import { createClient } from "@/lib/supabase/server";
 import { LoginForm } from "./login-form";
+
+export const metadata: Metadata = {
+    title: "Logowanie",
+    description: "Logowanie do panelu administracyjnego kiermaszu ZSP Mechanik.",
+    robots: {
+        index: false,
+        follow: false,
+    },
+    alternates: {
+        canonical: "/login",
+    },
+    openGraph: {
+        title: `Logowanie | ${SITE_NAME}`,
+        url: "/login",
+        siteName: SITE_NAME,
+        locale: "pl_PL",
+        type: "website",
+    },
+};
 
 export default async function LoginPage() {
     const supabase = await createClient();
