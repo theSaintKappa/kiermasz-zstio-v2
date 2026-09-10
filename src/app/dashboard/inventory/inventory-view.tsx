@@ -52,12 +52,12 @@ export function SellersView({ sellers, seller, items, eventId }: SellersViewProp
     }
 
     return (
-        <div className="flex w-full min-w-0 gap-4">
-            <div className="min-w-60">
-                <SellersList sellers={sellers} onAddClick={() => setCreateOpen(true)} activeSellerId={seller?.id ?? null} />
+        <div className="-mb-4 flex h-[calc(100svh-3.5rem)] w-full min-w-0 gap-4 group-has-data-[collapsible=icon]/sidebar-wrapper:h-[calc(100svh-3rem)]">
+            <div className="min-h-0 min-w-60">
+                <SellersList sellers={sellers} onAddClick={() => setCreateOpen(true)} activeSellerId={seller?.id ?? null} className="pb-4" />
             </div>
             <Separator orientation="vertical" className="h-full" />
-            <div className="min-w-0 flex-1">{seller ? <SellerProfile seller={seller} items={items} /> : <EmptyState />}</div>
+            <div className="min-h-0 min-w-0 flex-1 overflow-y-auto pb-4">{seller ? <SellerProfile seller={seller} items={items} /> : <EmptyState />}</div>
             <CreateSellerDialog open={createOpen} onOpenChange={setCreateOpen} onCreated={(id) => router.push(`/dashboard/inventory/${id}`)} />
         </div>
     );

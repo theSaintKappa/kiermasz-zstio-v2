@@ -8,15 +8,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SidebarMenu, SidebarMenuBadge, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
 import { filterSellers, type SellerRow } from "./inventory-utils";
 
 interface SellersListProps {
     sellers: SellerRow[];
     onAddClick: () => void;
     activeSellerId: string | null;
+    className?: string;
 }
 
-export function SellersList({ sellers, onAddClick, activeSellerId }: SellersListProps) {
+export function SellersList({ sellers, onAddClick, activeSellerId, className }: SellersListProps) {
     const router = useRouter();
     const [search, setSearch] = useState("");
 
@@ -39,7 +41,7 @@ export function SellersList({ sellers, onAddClick, activeSellerId }: SellersList
                 </Tooltip>
             </div>
 
-            <div className="flex-1 overflow-y-auto">
+            <div className={cn("min-h-0 flex-1 overflow-y-auto", className)}>
                 {filtered.length === 0 ? (
                     <p className="py-8 text-center text-muted-foreground text-sm">{search ? "Brak wyników" : "Brak sprzedawców"}</p>
                 ) : (
