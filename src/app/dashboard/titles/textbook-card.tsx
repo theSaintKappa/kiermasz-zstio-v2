@@ -57,7 +57,7 @@ export function TextbookCard({ textbook, onEdit }: TextbookCardProps) {
                                 {LEVEL_LABELS[textbook.level] ?? textbook.level}
                             </Badge>
                             <Badge className="text-[10px]">
-                                {textbook.itemCount} {textbook.itemCount === 1 ? "egzemplarz" : textbook.itemCount < 5 && textbook.itemCount > 1 ? "egzemplarze" : "egzemplarzy"}
+                                {textbook.availableItemCount} {textbook.availableItemCount === 1 ? "egzemplarz" : textbook.availableItemCount < 5 && textbook.availableItemCount > 1 ? "egzemplarze" : "egzemplarzy"}
                             </Badge>
                         </div>
                         <div className="flex items-center gap-1 text-white text-xs">

@@ -15,12 +15,16 @@ export default async function TitlesPage() {
 
     const { data: subjects } = await supabase.from("subjects").select("id, name").order("name");
 
-    const { data: itemRows } = await supabase.from("textbook_items").select("title_id");
+    const { data: itemRows } = await supabase.from("textbook_items").select("title_id, status");
 
     const countByTitle = new Map<string, number>();
+    const availableCountByTitle = new Map<string, number>();
     for (const row of itemRows ?? []) {
         if (row.title_id) {
             countByTitle.set(row.title_id, (countByTitle.get(row.title_id) ?? 0) + 1);
+            if (row.status === "available") {
+                availableCountByTitle.set(row.title_id, (availableCountByTitle.get(row.title_id) ?? 0) + 1);
+            }
         }
     }
 
@@ -44,6 +48,7 @@ export default async function TitlesPage() {
         created_at: t.created_at,
         subjectName: (t.subjects as unknown as { name: string } | null)?.name ?? null,
         itemCount: countByTitle.get(t.id) ?? 0,
+        availableItemCount: availableCountByTitle.get(t.id) ?? 0,
     }));
 
     const groupMap = new Map<string, TextbookRow[]>();
