@@ -70,7 +70,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <body className="flex min-h-full flex-col">
                 <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
                     <TooltipProvider>{children}</TooltipProvider>
-                    <Toaster richColors />
+                    <Toaster richColors position="bottom-center" />
                     <OnlineStatus />
                 </ThemeProvider>
             </body>
