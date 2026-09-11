@@ -1,4 +1,4 @@
-import { AlmsIcon, BookAIcon, Bookshelf03Icon, Calendar02Icon, ChartIcon, HoldLocked01Icon, PencilRulerIcon, PolicyIcon, Scroll01Icon, Store01Icon, UserShield01Icon } from "@hugeicons/core-free-icons";
+import { AlmsIcon, BookAIcon, Bookshelf03Icon, Calendar02Icon, ChartIcon, HoldLocked01Icon, MoneyReceive02Icon, PencilRulerIcon, PolicyIcon, Scroll01Icon, Store01Icon, UserShield01Icon } from "@hugeicons/core-free-icons";
 import type { IconSvgElement } from "@hugeicons/react";
 
 export type NavItem = {
@@ -28,6 +28,7 @@ export const navGroups: NavGroup[] = [
         label: "Sprzedaż",
         items: [
             { title: "Sprzedawaj", url: "/dashboard/sales", icon: Store01Icon },
+            { title: "Transakcje", url: "/dashboard/transactions", icon: MoneyReceive02Icon },
             { title: "Rezerwacje", url: "/dashboard/reservations", icon: HoldLocked01Icon },
         ],
     },

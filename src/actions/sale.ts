@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 
@@ -71,6 +72,26 @@ export async function createReservation(itemIds: string[], firstName: string, la
     if (error) throw new Error(error.message);
 
     return data as ReservationResult;
+}
+
+export async function undoSale(saleId: string): Promise<void> {
+    const supabase = await requireAuth();
+    const eventId = await getEventId();
+    const { data, error } = await supabase.rpc("undo_sale", { p_event_id: eventId, p_sale_id: saleId });
+    if (error) throw new Error(error.message);
+    const result = data as { success: boolean };
+    if (!result?.success) throw new Error("Nie znaleziono transakcji.");
+    revalidatePath("/dashboard/transactions");
+}
+
+export async function undoSaleItem(saleItemId: string): Promise<void> {
+    const supabase = await requireAuth();
+    const eventId = await getEventId();
+    const { data, error } = await supabase.rpc("undo_sale_item", { p_event_id: eventId, p_sale_item_id: saleItemId });
+    if (error) throw new Error(error.message);
+    const result = data as { success: boolean };
+    if (!result?.success) throw new Error("Nie znaleziono pozycji transakcji.");
+    revalidatePath("/dashboard/transactions");
 }
 
 export async function verifyCartItems(itemIds: string[]): Promise<string[]> {
