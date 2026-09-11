@@ -114,8 +114,6 @@ export default async function HomePage({ searchParams }: { searchParams: Promise
                     <Suspense fallback={<CatalogSkeleton />}>
                         <CatalogSection initialQuery={initialQuery} />
                     </Suspense>
-                    {/* <CatalogSkeleton />
-                    <CatalogSection initialQuery={initialQuery} /> */}
                 </CatalogShell>
             </div>
             <Footer />

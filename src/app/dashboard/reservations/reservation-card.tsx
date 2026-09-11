@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/format-utils";
 import { getCoverUrl } from "@/lib/storage-utils";
-import { isExpired, LEVEL_SHORT_LABELS, type ReservationRow } from "./reservations-utils";
+import { isExpired, LEVEL_SHORT_LABELS, type ReservationRow, textbookCountLabel } from "./reservations-utils";
 
 interface ReservationCardProps {
     reservation: ReservationRow;
@@ -37,8 +37,10 @@ export function ReservationCard({ reservation, onFulfill, onCancel }: Reservatio
                     )}
                 </div>
                 <div className="flex flex-col items-center">
-                    <span className="text-muted-foreground text-xs">Łącznie</span>
                     <span className="font-semibold">{formatPrice(reservation.total)}</span>
+                    <span className="text-muted-foreground text-xs">
+                        {reservation.items.length} {textbookCountLabel(reservation.items.length)}
+                    </span>
                 </div>
                 <div className="flex flex-col gap-1 sm:flex-row sm:gap-2">
                     <Button size="sm" onClick={() => onFulfill(reservation)}>

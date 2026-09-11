@@ -72,7 +72,7 @@ export function CatalogShell({ initialQuery, children }: CatalogShellProps) {
 
     return (
         <CatalogContext.Provider value={{ query, setQuery, reportCount }}>
-            <div className="flex w-full flex-col">
+            <div className="flex w-full flex-col pt-5">
                 {/* Sticky search bar — interactive immediately */}
                 <div className="sticky top-0 z-20 bg-background/80 p-3 backdrop-blur">
                     <InputGroup className="h-12">

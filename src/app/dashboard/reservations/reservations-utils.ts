@@ -48,11 +48,14 @@ export function expiryDayLabel(expiresAt: string): string {
 
 export function reservationCountLabel(n: number): string {
     if (n === 1) return "rezerwacja";
-    const lastTwo = n % 100;
-    const lastOne = n % 10;
-    if (lastTwo >= 12 && lastTwo <= 14) return "rezerwacji";
-    if (lastOne >= 2 && lastOne <= 4) return "rezerwacje";
+    if (n < 5) return "rezerwacje";
     return "rezerwacji";
+}
+
+export function textbookCountLabel(n: number): string {
+    if (n === 1) return "podręcznik";
+    if (n < 5) return "podręczniki";
+    return "podręczników";
 }
 
 export const LEVEL_SHORT_LABELS: Record<EducationLevel, string> = {

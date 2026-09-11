@@ -58,7 +58,7 @@ export function ConfirmDeleteTextbookItemDialog({ open, onOpenChange, item }: Co
                 {item && item.status === "sold" && (
                     <div className="flex flex-col gap-2 rounded-md border border-destructive bg-destructive/10 p-3 text-center text-sm">
                         <p className="font-semibold text-destructive">Ten podręcznik został sprzedany.</p>
-                        <p className="text-muted-foreground">Nie można go usunąć. Jeśli to błąd, skontaktuj się z administratorem.</p>
+                        <p className="text-muted-foreground">Usuń transakcję, zanim usuniesz podręcznik.</p>
                     </div>
                 )}
                 {item && item.status === "reserved" && (
