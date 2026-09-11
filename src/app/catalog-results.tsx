@@ -28,7 +28,7 @@ export function CatalogResults({ initialRows, initialQuery }: CatalogResultsProp
     return (
         <>
             {/* Helper note */}
-            {!hasQuery && rows.length > 0 && (
+            {rows.length > 0 && (
                 <p className="mx-auto flex items-center gap-1 text-center text-muted-foreground text-xs">
                     <HugeiconsIcon icon={InfoIcon} className="size-3" />
                     Kliknij w tytuł, aby zobaczyć szczegółowe informacje i dostępność.
