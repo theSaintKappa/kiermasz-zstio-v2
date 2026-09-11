@@ -148,6 +148,7 @@ const PUBLISHER_ALIASES: Record<string, string> = {
     "person central  europe": "Pearson",
     "pearson central europe": "Pearson",
     "helion edukacja": "Helion",
+    "wydawnictwo pedagogiczne operon": "Operon",
 };
 
 function extractPublisher(fields: MarcField[]): string | null {
