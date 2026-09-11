@@ -5,7 +5,7 @@ import { HugeiconsIcon } from "@hugeicons/react";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
 import { SidebarMenu, SidebarMenuBadge, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
@@ -27,10 +27,12 @@ export function SellersList({ sellers, onAddClick, activeSellerId, className }: 
     return (
         <div className="flex h-full flex-col gap-3">
             <div className="flex items-center gap-2">
-                <div className="relative flex-1">
-                    <HugeiconsIcon icon={SearchIcon} strokeWidth={2} className="-translate-y-1/2 pointer-events-none absolute top-1/2 left-2.5 size-4 text-muted-foreground" />
-                    <Input placeholder="Szukaj..." value={search} onChange={(e) => setSearch(e.target.value)} className="pl-8" />
-                </div>
+                <InputGroup>
+                    <InputGroupInput placeholder="Szukaj..." value={search} onChange={(e) => setSearch(e.target.value)} />
+                    <InputGroupAddon align="inline-start">
+                        <HugeiconsIcon icon={SearchIcon} strokeWidth={2} className="text-muted-foreground" />
+                    </InputGroupAddon>
+                </InputGroup>
                 <Tooltip>
                     <TooltipTrigger render={<Button size="icon" onClick={onAddClick} />}>
                         <HugeiconsIcon icon={UserAdd02Icon} strokeWidth={2} />
@@ -41,7 +43,7 @@ export function SellersList({ sellers, onAddClick, activeSellerId, className }: 
                 </Tooltip>
             </div>
 
-            <div className={cn("min-h-0 flex-1 overflow-y-auto", className)}>
+            <div className={cn("scroll-fade min-h-0 flex-1 overflow-y-auto", className)}>
                 {filtered.length === 0 ? (
                     <p className="py-8 text-center text-muted-foreground text-sm">{search ? "Brak wyników" : "Brak sprzedawców"}</p>
                 ) : (
