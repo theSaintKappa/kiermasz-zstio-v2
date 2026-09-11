@@ -30,7 +30,7 @@ export function CatalogCard({ row, onSelect }: CatalogCardProps) {
                         alt={row.title}
                         fill
                         sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 17vw"
-                        className={cn("object-cover brightness-50 sm:brightness-100 sm:transition-all sm:duration-300 sm:group-hover/card:scale-105 sm:group-hover/card:blur-[2px] sm:group-hover/card:brightness-50", row.availableCount === 0 && "grayscale")}
+                        className={cn("object-cover transition-all duration-300 group-hover/card:scale-105 group-hover/card:blur-[2px] group-hover/card:brightness-50", row.availableCount === 0 && "grayscale")}
                     />
                 ) : (
                     <div className="flex size-full items-center justify-center">
@@ -38,16 +38,24 @@ export function CatalogCard({ row, onSelect }: CatalogCardProps) {
                     </div>
                 )}
                 {/* Always-visible badges */}
-                <div className="pointer-events-none absolute top-2 left-2 flex flex-wrap gap-1">
-                    {hasStock && (
-                        <Badge variant="secondary">
-                            {row.availableCount} {pluralize(row.availableCount, "egzemplarz", "egzemplarze", "egzemplarzy")}
+                <div className="pointer-events-none absolute top-1.5 left-1.5 space-y-px">
+                    <div className="space-x-0.5">
+                        {hasStock && (
+                            <Badge variant="secondary">
+                                {row.availableCount} {pluralize(row.availableCount, "egzemplarz", "egzemplarze", "egzemplarzy")}
+                            </Badge>
+                        )}
+                        {row.priceFrom != null ? <Badge variant="default">od {formatPrice(row.priceFrom)}</Badge> : <Badge variant="secondary">Brak ofert</Badge>}
+                    </div>
+                    {hot && (
+                        <Badge className="pointer-events-none gap-1 border-0 bg-orange-500 text-white hover:bg-orange-500">
+                            <HugeiconsIcon icon={FireIcon} strokeWidth={2} />
+                            <span className="sr-only">Wysoki popyt</span>
                         </Badge>
                     )}
-                    {row.priceFrom != null ? <Badge variant="default">od {formatPrice(row.priceFrom)}</Badge> : <Badge variant="secondary">Brak ofert</Badge>}
                 </div>
-                {/* Hover overlay (desktop) */}
-                <div className="opacity-100 sm:opacity-0 sm:transition-opacity sm:duration-300 sm:group-hover/card:opacity-100">
+                {/* Hover overlay */}
+                <div className="opacity-0 transition-opacity duration-300 group-hover/card:opacity-100">
                     <div className="pointer-events-none absolute inset-0 flex flex-col justify-end bg-linear-to-t from-black/60 via-black/10 to-transparent p-3">
                         <div className="text-white text-xs">
                             <div className="text-[10px] text-white/80 uppercase tracking-wider">Poziom</div>
@@ -81,15 +89,7 @@ export function CatalogCard({ row, onSelect }: CatalogCardProps) {
                         {row.lastSoldAt && <div className="text-[10px] text-white/70">Ostatnia sprzedaż: {formatDayDate(row.lastSoldAt)}</div>}
                     </div>
                 </div>
-                {/* Fire badge for high demand */}
-                {hot && (
-                    <Badge className="pointer-events-none absolute top-2 right-2 gap-1 border-0 bg-orange-500 text-white hover:bg-orange-500">
-                        <HugeiconsIcon icon={FireIcon} className="size-3" />
-                        <span className="sr-only">Wysoki popyt</span>
-                    </Badge>
-                )}
             </div>
-
             <div className="flex flex-1 flex-col gap-0.5 p-2.5">
                 <span className="line-clamp-2 font-medium text-sm leading-snug">{row.title}</span>
                 {row.subtitle && <span className="line-clamp-2 text-muted-foreground text-xs leading-snug">{row.subtitle}</span>}

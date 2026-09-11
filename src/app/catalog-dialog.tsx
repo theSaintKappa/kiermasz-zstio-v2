@@ -9,7 +9,7 @@ import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { formatDateTime, formatPrice } from "@/lib/format-utils";
 import { getCoverUrl } from "@/lib/storage-utils";
 import type { PublicCatalogItem, PublicCatalogRow } from "./public-catalog-utils";
-import { formatDayDate, isHotTitle, LEVEL_LABELS, pluralize } from "./public-catalog-utils";
+import { formatDayDate, isHotTitle, LEVEL_LABELS } from "./public-catalog-utils";
 
 interface CatalogDialogProps {
     row: PublicCatalogRow | null;
@@ -29,7 +29,7 @@ export function CatalogDialog({ row, open, onOpenChange }: CatalogDialogProps) {
             <DialogContent className="sm:max-w-2xl">
                 <div className="flex flex-col gap-6 sm:flex-row">
                     {/* Cover */}
-                    <div className="relative aspect-210/297 w-40 shrink-0 overflow-hidden rounded-lg bg-muted/50 sm:w-52">
+                    <div className="relative aspect-210/297 w-40 shrink-0 overflow-hidden rounded-lg bg-muted/50 sm:w-42">
                         {coverUrl ? (
                             <Image src={coverUrl} alt={row.title} fill sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 20vw, 16vw" className="object-cover" />
                         ) : (
@@ -44,8 +44,8 @@ export function CatalogDialog({ row, open, onOpenChange }: CatalogDialogProps) {
                             <div className="flex items-center gap-2">
                                 <h2 className="font-bold font-heading text-xl">{row.title}</h2>
                                 {hot && (
-                                    <Badge className="gap-1 border-0 bg-orange-500 text-white hover:bg-orange-500">
-                                        <HugeiconsIcon icon={FireIcon} className="size-3" />
+                                    <Badge className="border-0 bg-orange-500 font-bold text-white hover:bg-orange-500">
+                                        <HugeiconsIcon icon={FireIcon} strokeWidth={2} />
                                         Wysoki popyt
                                     </Badge>
                                 )}
@@ -85,21 +85,26 @@ export function CatalogDialog({ row, open, onOpenChange }: CatalogDialogProps) {
                                 <span className="text-muted-foreground text-xs">Dostępne: </span>
                                 {row.availableCount} szt.
                             </div>
+                            {row.items.length > 1 && row.priceFrom !== null && row.priceTo !== null && row.priceAvg !== null && (
+                                <div>
+                                    <span className="text-muted-foreground text-xs">Cena: </span>
+                                    od {formatPrice(row.priceFrom)} do {formatPrice(row.priceTo)}
+                                </div>
+                            )}
                             <div>
                                 <span className="text-muted-foreground text-xs">Sprzedane: </span>
                                 {row.soldCount} szt.
+                                {row.recentSoldCount > 0 && (
+                                    <span className="text-muted-foreground text-xs tracking-tight">
+                                        <br />({row.recentSoldCount} szt. w ostatnie 24h)
+                                    </span>
+                                )}
                             </div>
                             {row.items.length > 1 && row.priceFrom !== null && row.priceTo !== null && row.priceAvg !== null && (
-                                <>
-                                    <div>
-                                        <span className="text-muted-foreground text-xs">Cena: </span>
-                                        od {formatPrice(row.priceFrom)} do {formatPrice(row.priceTo)}
-                                    </div>
-                                    <div>
-                                        <span className="text-muted-foreground text-xs">Średnia cena: </span>
-                                        {formatPrice(row.priceAvg)}
-                                    </div>
-                                </>
+                                <div>
+                                    <span className="text-muted-foreground text-xs">Średnia cena: </span>
+                                    {formatPrice(row.priceAvg)}
+                                </div>
                             )}
                         </div>
                         <div className="space-y-1">
@@ -109,36 +114,32 @@ export function CatalogDialog({ row, open, onOpenChange }: CatalogDialogProps) {
                                     {formatDateTime(row.lastSoldAt)}
                                 </div>
                             )}
-                            {row.recentSoldCount > 0 && (
-                                <div>
-                                    <span className="text-muted-foreground text-xs">Sprzedane w 24h: </span>
-                                    {row.recentSoldCount} {pluralize(row.recentSoldCount, "egzemplarz", "egzemplarze", "egzemplarzy")}
-                                </div>
-                            )}
                         </div>
                     </div>
                 </div>
                 {/* Available items */}
                 <div>
-                    <h3 className="mb-2 font-semibold">Dostępne egzemplarze ({row.items.length})</h3>
                     {row.items.length === 0 ? (
                         <p className="text-muted-foreground text-sm">Brak dostępnych egzemplarzy.</p>
                     ) : (
-                        <div className="scroll-fade max-h-54 overflow-y-auto rounded-md border">
-                            <Table>
-                                <TableBody>
-                                    {row.items.map((item: PublicCatalogItem) => (
-                                        <TableRow key={`${item.price}-${item.createdAt}-${item.sellerFirstName}-${item.sellerClassSymbol}`}>
-                                            <TableCell>
-                                                <span className="font-semibold">{item.sellerFirstName}</span> <span className="text-muted-foreground text-xs">{item.sellerClassSymbol || ""}</span>
-                                            </TableCell>
-                                            <TableCell className="text-muted-foreground">{formatDayDate(item.createdAt)}</TableCell>
-                                            <TableCell className="text-right font-medium">{formatPrice(item.price)}</TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </div>
+                        <>
+                            <h3 className="mb-2 font-semibold">Dostępne egzemplarze ({row.items.length})</h3>
+                            <div className="scroll-fade max-h-32 overflow-y-auto rounded-md border sm:max-h-64">
+                                <Table>
+                                    <TableBody>
+                                        {row.items.map((item: PublicCatalogItem) => (
+                                            <TableRow key={`${item.price}-${item.createdAt}-${item.sellerFirstName}-${item.sellerClassSymbol}`}>
+                                                <TableCell>
+                                                    <span className="font-semibold">{item.sellerFirstName}</span> <span className="text-muted-foreground text-xs">{item.sellerClassSymbol || ""}</span>
+                                                </TableCell>
+                                                <TableCell className="text-muted-foreground">{formatDayDate(item.createdAt)}</TableCell>
+                                                <TableCell className="text-right font-medium">{formatPrice(item.price)}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </div>
+                        </>
                     )}
                 </div>
             </DialogContent>
